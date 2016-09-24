@@ -1,0 +1,71 @@
+<div style="padding:20px;margin:0;">
+
+	<div class="row" style="height:300px">
+
+		<div class="col-md-4 col-sm-4 col-xs-12">
+			<div class="home-panel" style="height:280px">
+				<div class="home-panel-title">Pie</div>
+					<ext-polar [config]='polarConfig' ></ext-polar>
+			</div>
+		</div>
+
+		<div class="col-md-4 col-sm-4 col-xs-12">
+			<div class="home-panel" style="height:280px">
+				<div class="home-panel-title">Agency List</div>
+				<ext-list [config]='listConfig'></ext-list>
+			</div>
+		</div>
+
+		<div class="col-md-4 col-sm-4 col-xs-12">
+			<div class="home-panel" style="height:280px">
+				<div class="home-panel-title">Who Has Logged On? <button style="margin-top:-5px;margin-right:5px;float:right;" (click)="onStopAutoPlay()">Stop</button></div>
+				<ext [xtype]='"carousel"'	[config]='carouselConfig' (ready)='readyCarousel($event)'></ext>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="row" style="height:300px">
+		
+		<div class="col-md-6 col-sm-6 col-xs-12">
+			<div class="home-panel" style="height:280px;">
+				<div class="home-panel-title">Bar Chart</div>
+				<ext-cartesian [config]='cartesianConfig'></ext-cartesian>
+			</div>
+		</div>
+
+		<div class="col-md-6 col-sm-6 col-xs-12">
+			<div class="home-panel" style="height:280px">
+				<div class="home-panel-title">All Spending By Type of Investment</div>
+				<ext-pivotgrid [config]='pivotgridConfig'></ext-pivotgrid>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="row" style="height:300px">
+
+		<div class="col-md-4 col-sm-4 col-xs-12">
+			<div class="home-panel" style="height:280px">
+				<div class="home-panel-title">Flag Day - Wednesday, June 14 2017</div>
+				<div class="placeholder"></div>
+			</div>
+		</div>
+
+		<div class="col-md-4 col-sm-4 col-xs-12">
+			<div class="home-panel" style="height:280px">
+				<div class="home-panel-title">Placeholder</div>
+				<ext [xtype]='"d3-treemap"' [config]='d3Config' ></ext>
+			</div>
+		</div>
+
+		<div class="col-md-4 col-sm-4 col-xs-12">
+			<div class="home-panel" style="height:280px">
+				<div class="home-panel-title">Today's Candidate Calendar</div>
+				<ext [xtype]='"calendar-day"'	[config]='calendarConfig' (ready)='readyCalendar($event)'></ext>
+			</div>
+		</div>
+
+	</div>
+
+</div>
