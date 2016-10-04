@@ -20,13 +20,12 @@ import { ActionsComponent } from '../main/actions.component';
 			</ext-container>
 			<ext-toolbar [docked]="'top'" [config]="topConfig">
 				<ext-button [text]="'hi'" [ui]="'action'" [width]="'100'"></ext-button>
-				<ext [xtype]="'button'" [config]="button2Config"></ext>
 				<ext-button [config]="button3Config"></ext-button>
 			</ext-toolbar>
 			<ext-container [docked]="'bottom'" [config]="bottomConfig"></ext-container>
 			<ext-container [config]="centerConfig"></ext-container>
 			<ext-container [docked]="'right'" [config]="rightConfig">
-				<ext-ngcomponent [component]="tabs" ></ext-ngcomponent>
+				<ext-ngcomponent [component]="details" ></ext-ngcomponent>
 			</ext-container>
 		</ext-container>
 	`
