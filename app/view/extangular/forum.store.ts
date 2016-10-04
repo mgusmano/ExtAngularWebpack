@@ -1,7 +1,7 @@
-import {ExtJSClass} from '../../extangular/extjs.class';
+import {extclass} from '../../extangular/ext.class';
 import {ForumModel} from './forum.model';
 
-export class ForumStore extends ExtJSClass {
+export class ForumStore extends extclass {
 
 	constructor (createConfig: any) {
 		let className: any = 'Grids.store.ForumThreadsStore';

@@ -10,7 +10,7 @@ import { Router, NavigationEnd } from '@angular/router';
 	template: `
 		<div style="background:pink;width:150px;padding:5px;">
 			<div>Angular2 component {{time}}</div>
-			<extjs [xtype]= "'button'" [config]="buttonConfig" (tapit)="onButtonTap($event)"></extjs>
+			<ext [xtype]= "'button'" [config]="buttonConfig" (tapit)="onButtonTap($event)"></ext>
 		</div>
 	`
 })

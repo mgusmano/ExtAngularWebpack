@@ -1,4 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, Type } from '@angular/core';
+
+import { SimpleComponent } from '../items/simple.component';
+import { FooterComponent } from '../main/footer.component';
+import { TabsClientComponent } from '../tabs/tabsclient.component';
+import { OutletComponent } from '../main/outlet.component';
+import { SideBarComponent } from '../main/sidebar.component';
+import { WelcomeComponent } from '../main/welcome.component';
+import { MenuComponent } from '../main/menu.component';
+import { ActionsComponent } from '../main/actions.component';
+
 
 @Component({
 	styles:  [``],
@@ -6,7 +16,7 @@ import { Component } from '@angular/core';
 	template: `
 		<ext-container [layout]="'fit'" [config]="panelConfig">
 			<ext-container [docked]="'left'" [config]="leftConfig">
-				<ext-ngcomponent [selector]="'sidebar'"></ext-ngcomponent>
+				<ext-ngcomponent [component]="sidebar"></ext-ngcomponent>
 			</ext-container>
 			<ext-toolbar [docked]="'top'" [config]="topConfig">
 				<ext-button [text]="'hi'" [ui]="'action'" [width]="'100'"></ext-button>
@@ -16,15 +26,17 @@ import { Component } from '@angular/core';
 			<ext-container [docked]="'bottom'" [config]="bottomConfig"></ext-container>
 			<ext-container [config]="centerConfig"></ext-container>
 			<ext-container [docked]="'right'" [config]="rightConfig">
-				<ext-ngcomponent [selector]="'tabs'" ></ext-ngcomponent>
+				<ext-ngcomponent [component]="tabs" ></ext-ngcomponent>
 			</ext-container>
 		</ext-container>
 	`
 })
 export class ItemsClientComponent {
-	private panelConfig: any = { style: { background: 'lightyellow'}, top: 10, left:10, width: 600, height: 850 }
+	tabs: Type<TabsClientComponent> = TabsClientComponent;
+	sidebar: Type<SideBarComponent> = SideBarComponent;
+	private panelConfig: any = { style: { background: 'lightyellow'}, top: 10, left:10, width: 1000, height: 900 }
 	private leftConfig: any = { xhtml: 'left', xwidth: 200, style: { background: 'lightgray'}}
-	private topConfig: any = { height: 50, padding: 10	}
+	private topConfig: any = { style: { background: 'lightgreen'}, height: 50, padding: 0	}
 		private button1Config: any = { text: 'hello1', ui: 'action', margin: 2 }
 		private button2Config: any = { text: 'hello2', ui: 'action', margin: 2 }
 		private button3Config: any = { text: 'hello3', ui: 'action', margin: 2 }

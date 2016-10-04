@@ -1,6 +1,6 @@
-import {ExtJSClass} from '../../extangular/extjs.class';
+import {extclass} from '../../extangular/ext.class';
 
-export class ForumModel extends ExtJSClass {
+export class ForumModel extends extclass {
 
 	constructor (CreateConfig: any) {
 		let className: any = 'Grids.model.ForumThreadModel';

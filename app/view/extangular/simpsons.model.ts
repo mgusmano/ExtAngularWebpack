@@ -1,6 +1,6 @@
-import {ExtJSClass} from '../../extangular/extjs.class';
+import {extclass} from '../../extangular/ext.class';
 
-export class SimpsonsModel extends ExtJSClass {
+export class SimpsonsModel extends extclass {
 
 	constructor (createConfig: any) {
 		let className: any = 'simpsons.model';

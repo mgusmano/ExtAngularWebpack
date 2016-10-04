@@ -5,7 +5,7 @@ import { CandidateCalendarStore } from '../../store/candidatecalendar.store';
 	styles:  [``],
   selector: '',
 	template: `
-		<extjs [xtype]='"calendar"'  [config]='calendarConfig'></extjs>
+		<ext [xtype]='"calendar"' [config]='calendarConfig'></ext>
 	`
 })
 export class CandidateCalendarsComponent { 

@@ -1,4 +1,4 @@
-export class ExtJSClass {
+export class extclass {
 	public className: any;
 	public extend: any;
 	public defineConfig: any;

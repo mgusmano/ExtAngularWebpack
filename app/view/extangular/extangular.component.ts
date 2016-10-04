@@ -1,6 +1,6 @@
 /* tslint:disable:member-ordering */
 import {Component, ChangeDetectionStrategy} from '@angular/core';
-import {ExtJS} from '../../extangular/extjs';
+//import {ExtJS} from '../../extangular/extjs';
 import {SalesStore} from '../../store/sales.store';
 import {SimpsonsStore} from './simpsons.store';
 import {ForumStore} from './forum.store';
@@ -15,7 +15,6 @@ import {SimpsonsModel} from './simpsons.model';
 				<ext-grid #theGridSales [nofit]=true
 					[(title)]="titleSales"
 					[columns]= "columnsSales" 
-					[selModel]="selModelSales"
 					[store]="storeSales"
 					[config]="configSales"
 					(select)="onGridSelectSales($event)"
@@ -26,7 +25,6 @@ import {SimpsonsModel} from './simpsons.model';
 				<ext-grid #theGridSimpsons [nofit]=true
 					[(title)]="titleSimpsons"
 					[columns]= "columnsSimpsons" 
-					[selModel]="selModelSimpsons"
 					[store]="storeSimpsons"
 					[config]="configSimpsons"
 					(select)="onGridSelectSimpsons($event)"
@@ -53,24 +51,26 @@ import {SimpsonsModel} from './simpsons.model';
 				<ext-grid #theGridForum [nofit]=true
 					[(title)]="titleForum"
 					[columns]= "columnsForum" 
-					[selModel]="selModelForum"
 					[store]="storeForum"
 					(select)="onGridSelectForum($event)"
 					(selectionchange)="onGridSelectionChangeForum($event)"
 				></ext-grid>
 
 	
-				<br/><br/>
-				<ext-pivotgrid #thePivotGrid [nofit]=true
-					[(title)]="titlePivotGrid"
-					[leftAxis]="leftAxisPivotGrid" 
-					[topAxis]="topAxisPivotGrid" 
-					[aggregate]="aggregatePivotGrid"
-					[store]="storePivotGrid"
-					(pivotdone)="onPivotDone($event)"
-				></ext-pivotgrid>
+
 	`
 })
+
+				// <br/><br/>
+				// <ext-pivotgrid #thePivotGrid [nofit]=true
+				// 	[(title)]="titlePivotGrid"
+				// 	[leftAxis]="leftAxisPivotGrid" 
+				// 	[topAxis]="topAxisPivotGrid" 
+				// 	[aggregate]="aggregatePivotGrid"
+				// 	[store]="storePivotGrid"
+				// 	(pivotdone)="onPivotDone($event)"
+				// ></ext-pivotgrid>
+
 
 export class ExtAngularComponent {
 	public email: string;

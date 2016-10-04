@@ -1,6 +1,6 @@
-import {ExtJSClass} from '../extangular/extjs.class';
+import {extclass} from '../extangular/ext.class';
 
-export class AgencySummaryStore extends ExtJSClass {
+export class AgencySummaryStore extends extclass {
 	constructor (createConfig: any) {
 		let className: any = 'AgencySummaryStore';
 		let extend: any = 'Ext.data.Store';

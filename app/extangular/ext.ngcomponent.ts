@@ -1,31 +1,25 @@
-import { Component, ViewChild, ElementRef, Attribute, ComponentFactory, ComponentFactoryResolver, ViewContainerRef, forwardRef, ContentChildren, QueryList, Type } from '@angular/core';
-import { ExtBase } from './ext.base';
-
-export class ExtNgComponentMetaData {
+import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
+import { extbase } from './ext.base';
+class ExtNgComponentMetaData {
 	public static XTYPE: string = 'container';
-	public static INPUTNAMES: string[] = [
-		'selector',
-		'selectorParams'
-	];
-	public static OUTPUTS: any[] = [
-	];
+	public static INPUTNAMES: string[] = ['selector','component','selectorParams'];
+	public static OUTPUTS: any[] = [];
 	public static OUTPUTNAMES: string[] = [];
 }
-ExtBase.iterateIt(ExtNgComponentMetaData);
-
 @Component({
   selector: 'ext-ngcomponent',
 	inputs: ExtNgComponentMetaData.INPUTNAMES.concat('config'),
 	outputs: ExtNgComponentMetaData.OUTPUTNAMES.concat('ready'),
-	providers: [{ provide: ExtBase, useExisting: forwardRef(() => ExtNgComponent) }],
-	template: `<template #dynamicTarget></template>`
+	providers: [{provide: extbase, useExisting: forwardRef(() => extngcomponent)}],
+	template: '<template #dynamic></template>'
 })
-export class ExtNgComponent  extends ExtBase {
+export class extngcomponent  extends extbase {
+	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef: QueryList<ViewContainerRef>;
+	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef: ViewContainerRef;
 	constructor(myElement: ElementRef, componentFactoryResolver: ComponentFactoryResolver, viewContainerRef: ViewContainerRef) {
 		super(myElement, componentFactoryResolver, viewContainerRef, ExtNgComponentMetaData);
 	}
-	@ViewChild('dynamicTarget', { read: ViewContainerRef }) private dynamicTarget: ViewContainerRef;
-	@ContentChildren(ExtBase, { read: ViewContainerRef }) ExtBaseRef: QueryList<ViewContainerRef>;
-	ngAfterContentInit() { this.AfterContentInit(this.ExtBaseRef); }
-	ngOnInit() { this.OnInit(this.dynamicTarget); }
+	ngAfterContentInit() { this.AfterContentInit(this.extbaseRef); }
+	ngOnInit() { this.OnInit(this.dynamicRef); }
 }
+

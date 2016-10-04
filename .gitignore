@@ -1,0 +1,6 @@
+/.sencha/
+/node_modules/
+/typings/
+/cmdBuild/
+/npm-debug.log/
+/app/Theme/

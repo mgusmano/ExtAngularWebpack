@@ -1,63 +1,258 @@
-import { Component, ViewChild, ElementRef, Attribute, ComponentFactory, ComponentFactoryResolver, ViewContainerRef, forwardRef, ContentChildren, QueryList, Type } from '@angular/core';
-import { ExtBase } from './ext.base';
-
-import { SimpleComponent } from '../view/items/simple.component';
-import { FooterComponent } from '../view/main/footer.component';
-import { TabsClientComponent } from '../view/tabs/tabsclient.component';
-import { OutletComponent } from '../view/main/outlet.component';
-import { SideBarComponent } from '../view/main/sidebar.component';
-import { WelcomeComponent } from '../view/main/welcome.component';
-import { MenuComponent } from '../view/main/menu.component';
-import { ActionsComponent } from '../view/main/actions.component';
-
-export interface ExtGridColumn {
-	text?: string;
-	width?: number;
-	flex?: number;
-	dataIndex?: string;
-}
-
-export interface ExtStore {
-	xtype?: string;
-	fields?: Array<Object>;
-	data?: Array<Object>;
-}
-
-export class ExtGridMetaData {
+import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
+import { extbase } from './ext.base';
+class extgridMetaData {
 	public static XTYPE: string = 'grid';
 	public static INPUTNAMES: string[] = [
-		'nofit',
-		'title',
+		'activeItem',
+		'allowDeselect',
+		'alwaysOnTop',
+		'autoDestroy',
+		'axisLock',
+		'baseCls',
+		'bind',
+		'border',
+		'bottom',
+		'bufferSize',
+		'cardSwitchAnimation',
+		'centered',
+		'cls',
 		'columns',
-		'selModel',
+		'container',
+		'contentEl',
+		'control',
+		'controller',
+		'data',
+		'defaultListenerScope',
+		'defaults',
+		'defaultType',
+		'deferEmptyText',
+		'deselectOnContainerClick',
+		'disabled',
+		'disableSelection',
+		'disclosureProperty',
+		'docked',
+		'draggable',
+		'emptyText',
+		'enterAnimation',
+		'exitAnimation',
+		'flex',
+		'floated',
+		'fullscreen',
+		'grouped',
+		'height',
+		'hidden',
+		'hideAnimation',
+		'hideHeaders',
+		'hideOnMaskTap',
+		'html',
+		'id',
+		'indexBar',
+		'infinite',
+		'inline',
+		'itemCls',
+		'itemConfig',
+		'itemHeight',
+		'itemId',
+		'itemMap',
+		'items',
+		'itemTpl',
+		'keyMap',
+		'keyMapEnabled',
+		'keyMapTarget',
+		'lastFocused',
+		'lastSelected',
+		'layout',
+		'left',
+		'listeners',
+		'loadingText',
+		'locked',
+		'manageBorders',
+		'margin',
+		'masked',
+		'maxHeight',
+		'maxItemCache',
+		'maxWidth',
+		'minHeight',
+		'minWidth',
+		'modal',
+		'mode',
+		'onItemDisclosure',
+		'padding',
+		'pinHeaders',
+		'pinnedHeader',
 		'plugins',
-		'store'
-	];
+		'pressedDelay',
+		'preventSelectionOnDisclose',
+		'publishes',
+		'record',
+		'reference',
+		'referenceHolder',
+		'refreshHeightOnUpdate',
+		'relative',
+		'renderTo',
+		'right',
+		'rowLines',
+		'scrollable',
+		'scrollDock',
+		'scrollToTopOnRefresh',
+		'selection',
+		'session',
+		'shadow',
+		'shim',
+		'showAnimation',
+		'store',
+		'striped',
+		'style',
+		'styleHtmlCls',
+		'styleHtmlContent',
+		'title',
+		'toFrontOnShow',
+		'tooltip',
+		'top',
+		'totalColumnWidth',
+		'touchAction',
+		'tpl',
+		'tplWriteMode',
+		'translatable',
+		'triggerCtEvent',
+		'triggerEvent',
+		'twoWayBindable',
+		'ui',
+		'useBodyElement',
+		'useComponents',
+		'userCls',
+		'useSimpleItems',
+		'variableHeights',
+		'viewModel',
+		'width',
+		'x',
+		'xtype',
+		'y',
+		'zIndex',
+		'nofit',
+		'config'
+];
 	public static OUTPUTS: any[] = [
-		{ name: 'select', parameters: 'control,record,eOpts' },
-		{ name: 'columnsort', parameters: 'control,column,direction,eOpts' },
-		{ name: 'selectionchange', parameters: 'this,selected,eOpts' },
-		{ name: 'beforecellclick', parameters: 'this,td,cellIndex,record,tr,rowIndex,e,eOpts' },
-		{ name: 'enable', parameters: 'this,eOpts' },
-		{ name: 'headerclick', parameters: 'ct,column,e,t,eOpts' }
-	];
-	public static OUTPUTNAMES: string[] = [];
+		{name:'activate',parameters:'newActiveItem,grid,oldActiveItem'},
+		{name:'add',parameters:''},
+		{name:'added',parameters:'grid,container,index'},
+		{name:'beforehide',parameters:'grid'},
+		{name:'beforeorientationchange',parameters:''},
+		{name:'beforeselectionchange',parameters:'grid'},
+		{name:'beforeshow',parameters:'grid'},
+		{name:'beforetofront',parameters:'grid'},
+		{name:'columnadd',parameters:'grid,column,index'},
+		{name:'columnhide',parameters:'grid,column'},
+		{name:'columnmove',parameters:'grid,column,fromIndex,toIndex'},
+		{name:'columnremove',parameters:'grid,column'},
+		{name:'columnresize',parameters:'grid,column,width'},
+		{name:'columnshow',parameters:'grid,column'},
+		{name:'columnsort',parameters:'grid,column,direction'},
+		{name:'containertap',parameters:''},
+		{name:'deactivate',parameters:'oldActiveItem,grid,newActiveItem'},
+		{name:'deselect',parameters:'grid,record,supressed'},
+		{name:'destroy',parameters:''},
+		{name:'disclose',parameters:'grid,record,target,index,e'},
+		{name:'erased',parameters:'grid'},
+		{name:'floatingchange',parameters:'grid,positioned'},
+		{name:'fullscreen',parameters:'grid'},
+		{name:'hide',parameters:'grid'},
+		{name:'initialize',parameters:'grid'},
+		{name:'itemdoubletap',parameters:'grid,index,target,record,e'},
+		{name:'itemmouseenter',parameters:'grid,index,target,record,e'},
+		{name:'itemmouseleave',parameters:'grid,index,target,record,e'},
+		{name:'itemsingletap',parameters:'grid,index,target,record,e'},
+		{name:'itemswipe',parameters:'grid,index,target,record,e'},
+		{name:'itemtap',parameters:'grid,index,target,record,e'},
+		{name:'itemtaphold',parameters:'grid,index,target,record,e'},
+		{name:'itemtouchend',parameters:'grid,index,target,record,e'},
+		{name:'itemtouchmove',parameters:'grid,index,target,record,e'},
+		{name:'itemtouchstart',parameters:'grid,index,target,record,e'},
+		{name:'move',parameters:''},
+		{name:'moved',parameters:'grid,container,toIndex,fromIndex'},
+		{name:'orientationchange',parameters:''},
+		{name:'painted',parameters:'element'},
+		{name:'positionedchange',parameters:'grid,positioned'},
+		{name:'refresh',parameters:'grid'},
+		{name:'remove',parameters:''},
+		{name:'removed',parameters:'grid,container,index'},
+		{name:'renderedchange',parameters:'grid,item,rendered'},
+		{name:'resize',parameters:'element'},
+		{name:'select',parameters:'grid,record'},
+		{name:'selectionchange',parameters:'grid,records'},
+		{name:'show',parameters:'grid'},
+		{name:'tofront',parameters:'grid'},
+		{name:'updatedata',parameters:'grid,newData'}
+];
+	public static OUTPUTNAMES: string[] = [
+		'activate',
+		'add',
+		'added',
+		'beforehide',
+		'beforeorientationchange',
+		'beforeselectionchange',
+		'beforeshow',
+		'beforetofront',
+		'columnadd',
+		'columnhide',
+		'columnmove',
+		'columnremove',
+		'columnresize',
+		'columnshow',
+		'columnsort',
+		'containertap',
+		'deactivate',
+		'deselect',
+		'destroy',
+		'disclose',
+		'erased',
+		'floatingchange',
+		'fullscreen',
+		'hide',
+		'initialize',
+		'itemdoubletap',
+		'itemmouseenter',
+		'itemmouseleave',
+		'itemsingletap',
+		'itemswipe',
+		'itemtap',
+		'itemtaphold',
+		'itemtouchend',
+		'itemtouchmove',
+		'itemtouchstart',
+		'move',
+		'moved',
+		'orientationchange',
+		'painted',
+		'positionedchange',
+		'refresh',
+		'remove',
+		'removed',
+		'renderedchange',
+		'resize',
+		'select',
+		'selectionchange',
+		'show',
+		'tofront',
+		'updatedata'
+];
 }
-ExtBase.iterateIt(ExtGridMetaData);
-
 @Component({
-  selector: 'ext-' + ExtGridMetaData.XTYPE,
-	inputs: ExtGridMetaData.INPUTNAMES.concat('config'),
-	outputs: ExtGridMetaData.OUTPUTNAMES.concat('ready'),
-	providers: [ { provide: ExtBase, useExisting: forwardRef(() => ExtGrid) } ],
-	template: `<template #dynamicTarget></template>`
+  selector: 'ext-' + extgridMetaData.XTYPE,
+	inputs: extgridMetaData.INPUTNAMES,
+	outputs: extgridMetaData.OUTPUTNAMES.concat('ready'),
+	providers: [{provide: extbase, useExisting: forwardRef(() => extgrid)}],
+	template: '<template #dynamic></template>'
 })
-export class ExtGrid extends ExtBase {
-	constructor(myElement: ElementRef, componentFactoryResolver: ComponentFactoryResolver, viewContainerRef: ViewContainerRef) {
-		super(myElement, componentFactoryResolver, viewContainerRef, ExtGridMetaData);
+export class extgrid extends extbase {
+	constructor(eRef:ElementRef,resolver:ComponentFactoryResolver,vcRef:ViewContainerRef) {
+		super(eRef,resolver,vcRef,extgridMetaData);
 	}
-	@ContentChildren(ExtBase, { read: ViewContainerRef }) ExtBaseRef: QueryList<ViewContainerRef>;
-	@ViewChild('dynamicTarget', { read: ViewContainerRef }) private dynamicTarget: ViewContainerRef;
-	ngAfterContentInit() { this.AfterContentInit(this.ExtBaseRef); }
-	ngOnInit() { this.OnInit(this.dynamicTarget); }
+	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
+	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
+	ngAfterContentInit() {
+		debugger;
+		this.AfterContentInit(this.extbaseRef);
+	}
+	ngOnInit() {this.OnInit(this.dynamicRef);}
 }

@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 })
 
 export class SideBarComponent {
+	a;
 	private expanded: any = [];
 	private chevron: any = [];
 	private expandedx: any = [];

@@ -4,17 +4,18 @@ import { Component } from '@angular/core';
 	styles:  [``],
   selector: '',
 	template: `
-		<extjs [xtype]="'container'" [layout]="'vbox'" [config]="containerConfig">
-				<extjs [xtype]='button'></extjs>
-				<extjs [xtype]='button'></extjs>
-		</extjs>
+		<ext [xtype]="'container'" [config]="containerConfig">
+				<ext [xtype]='button'></ext>
+				<ext [xtype]='button'></ext>
+		</ext>
 	`
 })
 export class ContentChildrenComponent { 
 	private containerConfig:any = {};
 	constructor() {
 		this.containerConfig = {
-			html: 'hi'
+			html: 'hi',
+			layout: 'vbox'
 		}
 	}
 }

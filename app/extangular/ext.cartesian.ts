@@ -1,33 +1,88 @@
-import { Component, ViewChild, ElementRef, Attribute, ComponentFactory, ComponentFactoryResolver, ViewContainerRef, forwardRef, ContentChildren, QueryList, Type } from '@angular/core';
-import { ExtBase } from './ext.base';
-
-export class ExtCartesianMetaData {
+import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
+import { extbase } from './ext.base';
+class extcartesianMetaData {
 	public static XTYPE: string = 'cartesian';
 	public static INPUTNAMES: string[] = [
-	];
+		'animation',
+		'axes',
+		'background',
+		'colors',
+		'engine',
+		'flipXY',
+		'gradients',
+		'highlightItem',
+		'innerPadding',
+		'insetPadding',
+		'interactions',
+		'legend',
+		'mainRect',
+		'resizeHandler',
+		'series',
+		'sprites',
+		'store',
+		'style',
+		'theme'
+];
 	public static OUTPUTS: any[] = [
-		{ name: 'select', parameters: 'control,record,eOpts' },
-		{ name: 'columnsort', parameters: 'control,column,direction,eOpts' },
-	];
-	public static OUTPUTNAMES: string[] = [];
+		{name:'beforerefresh',parameters:'cartesian'},
+		{name:'bodyresize',parameters:'size'},
+		{name:'itemclick',parameters:'chart,item,event'},
+		{name:'itemdblclick',parameters:'chart,item,event'},
+		{name:'itemmousedown',parameters:'chart,item,event'},
+		{name:'itemmousemove',parameters:'chart,item,event'},
+		{name:'itemmouseout',parameters:'chart,item,event'},
+		{name:'itemmouseover',parameters:'chart,item,event'},
+		{name:'itemmouseup',parameters:'chart,item,event'},
+		{name:'itemtap',parameters:'chart,item,event'},
+		{name:'redraw',parameters:'cartesian'},
+		{name:'refresh',parameters:'cartesian'},
+		{name:'spriteclick',parameters:'sprite,event'},
+		{name:'spritedblclick',parameters:'sprite,event'},
+		{name:'spritemousedown',parameters:'sprite,event'},
+		{name:'spritemousemove',parameters:'sprite,event'},
+		{name:'spritemouseout',parameters:'sprite,event'},
+		{name:'spritemouseover',parameters:'sprite,event'},
+		{name:'spritemouseup',parameters:'sprite,event'},
+		{name:'spritetap',parameters:'sprite,event'},
+		{name:'storechange',parameters:'chart,newStore,oldStore'}
+];
+	public static OUTPUTNAMES: string[] = [
+		'beforerefresh',
+		'bodyresize',
+		'itemclick',
+		'itemdblclick',
+		'itemmousedown',
+		'itemmousemove',
+		'itemmouseout',
+		'itemmouseover',
+		'itemmouseup',
+		'itemtap',
+		'redraw',
+		'refresh',
+		'spriteclick',
+		'spritedblclick',
+		'spritemousedown',
+		'spritemousemove',
+		'spritemouseout',
+		'spritemouseover',
+		'spritemouseup',
+		'spritetap',
+		'storechange'
+];
 }
-ExtBase.iterateIt(ExtCartesianMetaData);
-
 @Component({
-  selector: 'ext-' + ExtCartesianMetaData.XTYPE,
-	inputs: ExtCartesianMetaData.INPUTNAMES.concat('config'),
-	outputs: ExtCartesianMetaData.OUTPUTNAMES.concat('ready'),
-	providers: [
-		{ provide: ExtBase, useExisting: forwardRef(() => ExtCartesian) }
-	],
-	template: `<template #dynamicTarget></template>`
+  selector: 'ext-' + extcartesianMetaData.XTYPE,
+	inputs: extcartesianMetaData.INPUTNAMES.concat('config').concat('nofit'),
+	outputs: extcartesianMetaData.OUTPUTNAMES.concat('ready'),
+	providers: [{provide: extbase, useExisting: forwardRef(() => extcartesian)}],
+	template: '<template #dynamic></template>'
 })
-export class ExtCartesian  extends ExtBase {
-	constructor(myElement: ElementRef, componentFactoryResolver: ComponentFactoryResolver, viewContainerRef: ViewContainerRef ) {
-		super(myElement, componentFactoryResolver, viewContainerRef, ExtCartesianMetaData);
+export class extcartesian extends extbase {
+	constructor(eRef:ElementRef,resolver:ComponentFactoryResolver,vcRef:ViewContainerRef) {
+		super(eRef,resolver,vcRef,extcartesianMetaData);
 	}
-	@ContentChildren(ExtBase, { read: ViewContainerRef }) ExtBaseRef: QueryList<ViewContainerRef>;
-	@ViewChild('dynamicTarget', { read: ViewContainerRef }) private dynamicTarget: ViewContainerRef;
-	ngAfterContentInit() { this.AfterContentInit(this.ExtBaseRef); }
-	ngOnInit() { this.OnInit(this.dynamicTarget); }
+	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
+	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
+	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef);}
 }

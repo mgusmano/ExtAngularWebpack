@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 	//styleUrls: ['./sidebar.component.css'],
 	styles:[require('./menu.component.css').toString()],
 	//moduleId: module.id, 
-	selector: 'menu',
+	selector: 'xmenu',
 	//styles:  [``],
 	//template : Template,
   //styles   : [Style]

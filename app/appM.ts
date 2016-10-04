@@ -63,7 +63,7 @@ import { DynamicModule }    from './view/dynamic/dynamic.module';
 
 import { SimpleGridComponent }    from './view/simplegrid/simplegrid.component';
 
-import { ExtModule }    from './extangular/ext.module';
+import { ExtModule } from './ExtAngular/ext.module';
 
 
 //import {provideComponentOutletModule} from './extangular/provider';
@@ -71,8 +71,8 @@ import { ExtModule }    from './extangular/ext.module';
 //export * from './extangular/component-outlet';
 //export {provideComponentOutletModule} from './extangular/provider';
 
-//const appRoutes: Routes = [
-const appRoutes: any = [
+const appRoutes: Routes = [
+//const appRoutes: any = [
   // new AsyncRoute({
   //   path: '/about',
   //   loader: () => System.import('./components/about/about').then(m => m.About),
@@ -175,8 +175,8 @@ export const routing = RouterModule.forRoot(appRoutes);
     // })
 	],
 	entryComponents: [TabsClientComponent, InheritClientComponent, SimpleComponent, WelcomeComponent, MenuComponent, ActionsComponent, SideBarComponent, FooterComponent, ChartComponent, TabsComponent, DialogComponent, OutletComponent],
-	//bootstrap: [ MainMComponent ]
-	bootstrap: [ MainEComponent ]
+	bootstrap: [ MainMComponent ]
+	//bootstrap: [ MainEComponent ]
 })
 export class AppModuleM { }
 

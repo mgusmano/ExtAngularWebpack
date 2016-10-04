@@ -1,8 +1,7 @@
-//import { Directive, OnInit } from 'angular2/core';
-import {ExtJSClass} from '../../extangular/extjs.class';
+import {extclass} from '../../extangular/ext.class';
 import {SimpsonsModel} from './simpsons.model';
 
-export class SimpsonsStore extends ExtJSClass {
+export class SimpsonsStore extends extclass {
 
 	constructor (createConfig: any) {
 		let className: any = 'ext.simpsons.store';

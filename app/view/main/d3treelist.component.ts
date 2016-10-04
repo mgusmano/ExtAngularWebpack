@@ -5,7 +5,7 @@ import { StocksStore } from '../../store/stocks.store';
 	styles:  [``],
   selector: '',
 	template: `
-		<extjs [xtype]='"d3-treemap"' [config]='d3Config' ></extjs>
+		<ext [xtype]='"d3-treemap"' [config]='d3Config' ></ext>
 	`
 })
 export class D3TreeListComponent { 

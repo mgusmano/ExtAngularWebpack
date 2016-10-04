@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import {ExtJSClass} from '../extangular/extjs.class';
+//import { Component } from '@angular/core';
+import {extclass} from '../extangular/ext.class';
 
-export class WidgetStore extends ExtJSClass {
+export class WidgetStore extends extclass {
 
 	constructor (createConfig: any) {
 		let className: any = 'WidgetStore';
