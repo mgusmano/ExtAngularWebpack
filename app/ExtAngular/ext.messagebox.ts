@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.MessageBox
 class extmessageboxMetaData {
 	public static XTYPE: string = 'messagebox';
 	public static INPUTNAMES: string[] = [
@@ -106,7 +107,9 @@ class extmessageboxMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'activate',parameters:'newActiveItem,messagebox,oldActiveItem'},
@@ -134,7 +137,8 @@ class extmessageboxMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'messagebox'},
 		{name:'tofront',parameters:'messagebox'},
-		{name:'updatedata',parameters:'messagebox,newData'}
+		{name:'updatedata',parameters:'messagebox,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'activate',
@@ -162,13 +166,14 @@ class extmessageboxMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extmessageboxMetaData.XTYPE,
-	inputs: extmessageboxMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extmessageboxMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extmessageboxMetaData.INPUTNAMES,
+	outputs: extmessageboxMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extmessagebox)}],
 	template: '<template #dynamic></template>'
 })
@@ -179,5 +184,5 @@ export class extmessagebox extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extmessageboxMetaData);}
 }

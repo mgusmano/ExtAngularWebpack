@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.field.FileInput
 class extfileinputMetaData {
 	public static XTYPE: string = 'fileinput';
 	public static INPUTNAMES: string[] = [
@@ -97,7 +98,9 @@ class extfileinputMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'added',parameters:'fileinput,container,index'},
@@ -127,7 +130,8 @@ class extfileinputMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'fileinput'},
 		{name:'tofront',parameters:'fileinput'},
-		{name:'updatedata',parameters:'fileinput,newData'}
+		{name:'updatedata',parameters:'fileinput,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'added',
@@ -157,13 +161,14 @@ class extfileinputMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extfileinputMetaData.XTYPE,
-	inputs: extfileinputMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extfileinputMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extfileinputMetaData.INPUTNAMES,
+	outputs: extfileinputMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extfileinput)}],
 	template: '<template #dynamic></template>'
 })
@@ -174,5 +179,5 @@ export class extfileinput extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extfileinputMetaData);}
 }

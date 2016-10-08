@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.Spacer
 class extspacerMetaData {
 	public static XTYPE: string = 'spacer';
 	public static INPUTNAMES: string[] = [
@@ -73,7 +74,9 @@ class extspacerMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'added',parameters:'spacer,container,index'},
@@ -95,7 +98,8 @@ class extspacerMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'spacer'},
 		{name:'tofront',parameters:'spacer'},
-		{name:'updatedata',parameters:'spacer,newData'}
+		{name:'updatedata',parameters:'spacer,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'added',
@@ -117,13 +121,14 @@ class extspacerMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extspacerMetaData.XTYPE,
-	inputs: extspacerMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extspacerMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extspacerMetaData.INPUTNAMES,
+	outputs: extspacerMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extspacer)}],
 	template: '<template #dynamic></template>'
 })
@@ -134,5 +139,5 @@ export class extspacer extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extspacerMetaData);}
 }

@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.form.FieldSet
 class extfieldsetMetaData {
 	public static XTYPE: string = 'fieldset';
 	public static INPUTNAMES: string[] = [
@@ -88,7 +89,9 @@ class extfieldsetMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'activate',parameters:'newActiveItem,fieldset,oldActiveItem'},
@@ -116,7 +119,8 @@ class extfieldsetMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'fieldset'},
 		{name:'tofront',parameters:'fieldset'},
-		{name:'updatedata',parameters:'fieldset,newData'}
+		{name:'updatedata',parameters:'fieldset,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'activate',
@@ -144,13 +148,14 @@ class extfieldsetMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extfieldsetMetaData.XTYPE,
-	inputs: extfieldsetMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extfieldsetMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extfieldsetMetaData.INPUTNAMES,
+	outputs: extfieldsetMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extfieldset)}],
 	template: '<template #dynamic></template>'
 })
@@ -161,5 +166,5 @@ export class extfieldset extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extfieldsetMetaData);}
 }

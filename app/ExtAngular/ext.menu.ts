@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.Menu
 class extmenuMetaData {
 	public static XTYPE: string = 'menu';
 	public static INPUTNAMES: string[] = [
@@ -100,7 +101,9 @@ class extmenuMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'activate',parameters:'newActiveItem,menu,oldActiveItem'},
@@ -128,7 +131,8 @@ class extmenuMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'menu'},
 		{name:'tofront',parameters:'menu'},
-		{name:'updatedata',parameters:'menu,newData'}
+		{name:'updatedata',parameters:'menu,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'activate',
@@ -156,13 +160,14 @@ class extmenuMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extmenuMetaData.XTYPE,
-	inputs: extmenuMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extmenuMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extmenuMetaData.INPUTNAMES,
+	outputs: extmenuMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extmenu)}],
 	template: '<template #dynamic></template>'
 })
@@ -173,5 +178,5 @@ export class extmenu extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extmenuMetaData);}
 }

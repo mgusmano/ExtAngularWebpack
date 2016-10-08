@@ -22,4 +22,3 @@ export class extngcomponent  extends extbase {
 	ngAfterContentInit() { this.AfterContentInit(this.extbaseRef); }
 	ngOnInit() { this.OnInit(this.dynamicRef); }
 }
-

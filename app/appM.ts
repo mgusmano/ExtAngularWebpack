@@ -5,9 +5,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { COMPILER_PROVIDERS } from '@angular/compiler';
-
 import * as _ from 'lodash';
-
 
 import { AgencyService }  from './service/agency.service';
 
@@ -42,7 +40,6 @@ import { SpendingDetailComponent } from './view/spendingdetail/spendingdetail.co
 import { ChartComponent } from './view/main/chart.component';
 import { ReportsComponent } from './view/reports/reports.component';
 import { CandidateCalendarsComponent } from './view/candidatecalendars/candidatecalendars.component';
-
 
 import { ConfiguratorComponent } from './view/main/configurator.component';
 import { AnalyzeComponent } from './view/analyze/analyze.component';

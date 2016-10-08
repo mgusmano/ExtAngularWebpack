@@ -10,7 +10,8 @@ import { AgencyService }  from '../../service/agency.service';
 			<option *ngFor="let obj of objArray" [value]="obj.value">{{obj.text}}</option>
 		</select>
 
-		<ext-pivotgrid 
+		<ext-pivotgrid
+			fit=true
 			[config]='pivotgridConfig'
 			[title] ='pivotTitle'
 			(ready)="readyPivotGrid($event)"

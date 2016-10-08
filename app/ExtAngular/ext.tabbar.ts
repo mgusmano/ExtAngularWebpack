@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.tab.Bar
 class exttabbarMetaData {
 	public static XTYPE: string = 'tabbar';
 	public static INPUTNAMES: string[] = [
@@ -88,7 +89,9 @@ class exttabbarMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'activate',parameters:'newActiveItem,tabbar,oldActiveItem'},
@@ -117,7 +120,8 @@ class exttabbarMetaData {
 		{name:'show',parameters:'tabbar'},
 		{name:'tabchange',parameters:'tabbar,newTab,oldTab'},
 		{name:'tofront',parameters:'tabbar'},
-		{name:'updatedata',parameters:'tabbar,newData'}
+		{name:'updatedata',parameters:'tabbar,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'activate',
@@ -146,13 +150,14 @@ class exttabbarMetaData {
 		'show',
 		'tabchange',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + exttabbarMetaData.XTYPE,
-	inputs: exttabbarMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: exttabbarMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: exttabbarMetaData.INPUTNAMES,
+	outputs: exttabbarMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => exttabbar)}],
 	template: '<template #dynamic></template>'
 })
@@ -163,5 +168,5 @@ export class exttabbar extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,exttabbarMetaData);}
 }

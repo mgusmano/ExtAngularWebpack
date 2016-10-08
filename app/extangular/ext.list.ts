@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.dataview.List
 class extlistMetaData {
 	public static XTYPE: string = 'list';
 	public static INPUTNAMES: string[] = [
@@ -124,7 +125,9 @@ class extlistMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'activate',parameters:'newActiveItem,list,oldActiveItem'},
@@ -169,7 +172,8 @@ class extlistMetaData {
 		{name:'selectionchange',parameters:'list,records'},
 		{name:'show',parameters:'list'},
 		{name:'tofront',parameters:'list'},
-		{name:'updatedata',parameters:'list,newData'}
+		{name:'updatedata',parameters:'list,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'activate',
@@ -214,13 +218,14 @@ class extlistMetaData {
 		'selectionchange',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extlistMetaData.XTYPE,
-	inputs: extlistMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extlistMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extlistMetaData.INPUTNAMES,
+	outputs: extlistMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extlist)}],
 	template: '<template #dynamic></template>'
 })
@@ -231,5 +236,5 @@ export class extlist extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extlistMetaData);}
 }

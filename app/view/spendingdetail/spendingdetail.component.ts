@@ -6,7 +6,7 @@ import { AgencyService }  from '../../service/agency.service';
 	styles:  [``],
   selector: 'spendingdetail',
 	template: `
-		<ext-grid [nofit]=false
+		<ext-grid fit=true
 			[config]='gridConfig' 
 			(ready)="readyGrid($event)"
 			(select)="selectGrid($event)"

@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.pivot.Grid
 class extpivotgridMetaData {
 	public static XTYPE: string = 'pivotgrid';
 	public static INPUTNAMES: string[] = [
@@ -137,7 +138,9 @@ class extpivotgridMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'activate',parameters:'newActiveItem,pivotgrid,oldActiveItem'},
@@ -221,7 +224,8 @@ class extpivotgridMetaData {
 		{name:'selectionchange',parameters:'pivotgrid,records'},
 		{name:'show',parameters:'pivotgrid'},
 		{name:'tofront',parameters:'pivotgrid'},
-		{name:'updatedata',parameters:'pivotgrid,newData'}
+		{name:'updatedata',parameters:'pivotgrid,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'activate',
@@ -305,13 +309,14 @@ class extpivotgridMetaData {
 		'selectionchange',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extpivotgridMetaData.XTYPE,
-	inputs: extpivotgridMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extpivotgridMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extpivotgridMetaData.INPUTNAMES,
+	outputs: extpivotgridMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extpivotgrid)}],
 	template: '<template #dynamic></template>'
 })
@@ -322,5 +327,5 @@ export class extpivotgrid extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extpivotgridMetaData);}
 }

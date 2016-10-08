@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.Title
 class exttitleMetaData {
 	public static XTYPE: string = 'title';
 	public static INPUTNAMES: string[] = [
@@ -74,7 +75,9 @@ class exttitleMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'added',parameters:'title,container,index'},
@@ -96,7 +99,8 @@ class exttitleMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'title'},
 		{name:'tofront',parameters:'title'},
-		{name:'updatedata',parameters:'title,newData'}
+		{name:'updatedata',parameters:'title,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'added',
@@ -118,13 +122,14 @@ class exttitleMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + exttitleMetaData.XTYPE,
-	inputs: exttitleMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: exttitleMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: exttitleMetaData.INPUTNAMES,
+	outputs: exttitleMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => exttitle)}],
 	template: '<template #dynamic></template>'
 })
@@ -135,5 +140,5 @@ export class exttitle extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,exttitleMetaData);}
 }

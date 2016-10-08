@@ -5,7 +5,7 @@ import { WidgetStore } from '../../store/widget.store';
 	styles:  [``],
   selector: '',
 	template: `
-		<ext-grid
+		<ext-grid fit=true
 			[config]='gridConfig' 
 			(ready)="readyGrid($event)"
 			(select)="selectGrid($event)"

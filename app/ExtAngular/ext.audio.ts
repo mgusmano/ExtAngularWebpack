@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.Audio
 class extaudioMetaData {
 	public static XTYPE: string = 'audio';
 	public static INPUTNAMES: string[] = [
@@ -82,7 +83,9 @@ class extaudioMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'added',parameters:'audio,container,index'},
@@ -111,7 +114,8 @@ class extaudioMetaData {
 		{name:'timeupdate',parameters:'audio,time'},
 		{name:'tofront',parameters:'audio'},
 		{name:'updatedata',parameters:'audio,newData'},
-		{name:'volumechange',parameters:'audio,volume'}
+		{name:'volumechange',parameters:'audio,volume'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'added',
@@ -140,13 +144,14 @@ class extaudioMetaData {
 		'timeupdate',
 		'tofront',
 		'updatedata',
-		'volumechange'
+		'volumechange',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extaudioMetaData.XTYPE,
-	inputs: extaudioMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extaudioMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extaudioMetaData.INPUTNAMES,
+	outputs: extaudioMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extaudio)}],
 	template: '<template #dynamic></template>'
 })
@@ -157,5 +162,5 @@ export class extaudio extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extaudioMetaData);}
 }

@@ -1,4 +1,3 @@
-
 /// <reference path="../../node_modules/retyped-extjs-tsd-ambient/ExtJS.d.ts" />
 import {AfterContentInit,AfterViewInit,Attribute,Component,ComponentFactory,ComponentRef,ComponentFactoryResolver,ContentChildren,
 	ElementRef,EventEmitter,OnInit,QueryList,Type,ViewChild,ViewContainerRef
@@ -18,7 +17,6 @@ export class extbase{
 		private viewContainerRef: ViewContainerRef, 
 		private metaData: any
 		) {
-		//this.nofit = nofit;
 		this.xtype = metaData.XTYPE;
 		this.inputs = metaData.INPUTNAMES;
 		this.rootElement = myElement.nativeElement;
@@ -26,23 +24,10 @@ export class extbase{
 		this['ready'] = new EventEmitter();
 		metaData.OUTPUTS.forEach( (event: any, n: any) => {
 			(<any>this)[event.name] = new EventEmitter();
-			this.listeners[event.name] = function() {
-					let parameters = event.parameters;
-					let parms = parameters.split(',');
-					let args = Array.prototype.slice.call(arguments);
-					let o: any = {};
-					for (let i = 0, j = parms.length; i < j; i++ ) {
-						//if (parms[i] !== 'eOpts') {
-							o[parms[i]] = args[i];
-						//}
-					}
-					me[event.name].next(o);
-			};
 		});
 	}
 
 	AfterContentInit(ExtJSBaseRef) {
-		debugger;
 		var extJSRootComponentRef : ViewContainerRef = ExtJSBaseRef.first;
 		var firstExtJS = extJSRootComponentRef['_element'].component.extjsObject;
 		firstExtJS.setRenderTo(this.myElement.nativeElement);
@@ -54,36 +39,52 @@ export class extbase{
 		}
 	}
 
-	OnInit(dynamicTarget) {
+	OnInit(dynamicTarget,metadata?) {
 		let me: any = this;
 		let o: any = {};
-
 		o.listeners = {};
-		//do this in a loop
-		o.listeners['select'] = function(list, record, eOpts) { me.select.next({list: list, record: record, eOpts: eOpts}); };
-		o.listeners['selectionchange'] = function(list, node) { me.selectionchange.next({list: list, node: node}); };
-		o.listeners['tap'] = function(obj, e, eOpts) { me.tapit.next({obj: obj, e: e}); };
+		var eventtasks = this.myElement.nativeElement.__zone_symbol__eventTasks;
+		if (eventtasks != undefined) {
+			eventtasks.forEach(function (eventtask, index, array) {
+				var eventIndex = metadata.OUTPUTNAMES.indexOf(eventtask.data.eventName);
+				if (eventIndex != -1) {
+					var eventname = eventtask.data.eventName;
+					var eventparameters = metadata.OUTPUTS[eventIndex].parameters
+					o.listeners[eventname] = function() {
+							let parameters: any = eventparameters;
+							let parms = parameters.split(',');
+							let args = Array.prototype.slice.call(arguments);
+							let o: any = {};
+							for (let i = 0, j = parms.length; i < j; i++ ) {
+									o[parms[i]] = args[i];
+							}
+							me[eventname].next(o);
+					};
+				}
+			});
+		}
 
 		o.xtype = me.xtype;
 		if (me.xtype != '') { o.xtype = me.xtype; }
 		for (var i = 0; i < me.metaData.INPUTNAMES.length; i++) { 
 			var prop = me.metaData.INPUTNAMES[i];
+			//need to handle listeners coming in here
 			if (me[prop] != undefined && 
+					prop != 'listeners' && 
 					prop != 'config' && 
 					prop != 'nofit') { 
 				o[prop] = me[prop]; 
 			};
 		}
-		// if (true == me.fit) {
-		// 	o.top=0, 
-		// 	o.left=0, 
-		// 	o.width='100%', 
-		// 	o.height='100%'
-		// }
+		if ('true' == me.fit) {
+			o.top=0, 
+			o.left=0, 
+			o.width='100%', 
+			o.height='100%'
+		}
 		if (me.config !== {} ) {
 			Ext.apply(o, me.config);
 		};
-		debugger;
 		me.extjsObject = Ext.create(o);
 
 		var componentFactory: ComponentFactory<any>;
@@ -103,5 +104,3 @@ export class extbase{
 		me.ready.next(me);
 	}
 }
-
-	

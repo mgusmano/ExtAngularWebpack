@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.LoadMask
 class extloadmaskMetaData {
 	public static XTYPE: string = 'loadmask';
 	public static INPUTNAMES: string[] = [
@@ -77,7 +78,9 @@ class extloadmaskMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'added',parameters:'loadmask,container,index'},
@@ -100,7 +103,8 @@ class extloadmaskMetaData {
 		{name:'show',parameters:'loadmask'},
 		{name:'tap',parameters:'loadmask,e'},
 		{name:'tofront',parameters:'loadmask'},
-		{name:'updatedata',parameters:'loadmask,newData'}
+		{name:'updatedata',parameters:'loadmask,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'added',
@@ -123,13 +127,14 @@ class extloadmaskMetaData {
 		'show',
 		'tap',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extloadmaskMetaData.XTYPE,
-	inputs: extloadmaskMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extloadmaskMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extloadmaskMetaData.INPUTNAMES,
+	outputs: extloadmaskMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extloadmask)}],
 	template: '<template #dynamic></template>'
 })
@@ -140,5 +145,5 @@ export class extloadmask extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extloadmaskMetaData);}
 }

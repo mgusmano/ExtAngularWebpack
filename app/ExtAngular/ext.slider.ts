@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.slider.Slider
 class extsliderMetaData {
 	public static XTYPE: string = 'slider';
 	public static INPUTNAMES: string[] = [
@@ -83,7 +84,9 @@ class extsliderMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'added',parameters:'slider,container,index'},
@@ -109,7 +112,8 @@ class extsliderMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'slider'},
 		{name:'tofront',parameters:'slider'},
-		{name:'updatedata',parameters:'slider,newData'}
+		{name:'updatedata',parameters:'slider,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'added',
@@ -135,13 +139,14 @@ class extsliderMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extsliderMetaData.XTYPE,
-	inputs: extsliderMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extsliderMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extsliderMetaData.INPUTNAMES,
+	outputs: extsliderMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extslider)}],
 	template: '<template #dynamic></template>'
 })
@@ -152,5 +157,5 @@ export class extslider extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extsliderMetaData);}
 }

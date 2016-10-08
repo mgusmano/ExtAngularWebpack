@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.SegmentedButton
 class extsegmentedbuttonMetaData {
 	public static XTYPE: string = 'segmentedbutton';
 	public static INPUTNAMES: string[] = [
@@ -92,7 +93,9 @@ class extsegmentedbuttonMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'activate',parameters:'newActiveItem,segmentedbutton,oldActiveItem'},
@@ -122,7 +125,8 @@ class extsegmentedbuttonMetaData {
 		{name:'show',parameters:'segmentedbutton'},
 		{name:'tofront',parameters:'segmentedbutton'},
 		{name:'toggle',parameters:'segmentedbutton,button,isPressed'},
-		{name:'updatedata',parameters:'segmentedbutton,newData'}
+		{name:'updatedata',parameters:'segmentedbutton,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'activate',
@@ -152,13 +156,14 @@ class extsegmentedbuttonMetaData {
 		'show',
 		'tofront',
 		'toggle',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extsegmentedbuttonMetaData.XTYPE,
-	inputs: extsegmentedbuttonMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extsegmentedbuttonMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extsegmentedbuttonMetaData.INPUTNAMES,
+	outputs: extsegmentedbuttonMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extsegmentedbutton)}],
 	template: '<template #dynamic></template>'
 })
@@ -169,5 +174,5 @@ export class extsegmentedbutton extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extsegmentedbuttonMetaData);}
 }

@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   selector: '',
 	template: `
 	<div style="width:500px;height:500px;">
-		<ext [xtype]="'cartesian'" [fit]=true [config]='cartesianConfig' ></ext>
+		<ext-cartesian fit=true [config]='cartesianConfig' ></ext-cartesian>
 	</div>
 	`
 })

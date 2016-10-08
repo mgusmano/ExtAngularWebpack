@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.field.Hidden
 class exthiddenfieldMetaData {
 	public static XTYPE: string = 'hiddenfield';
 	public static INPUTNAMES: string[] = [
@@ -97,7 +98,9 @@ class exthiddenfieldMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'action',parameters:'hiddenfield,e'},
@@ -127,7 +130,8 @@ class exthiddenfieldMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'hiddenfield'},
 		{name:'tofront',parameters:'hiddenfield'},
-		{name:'updatedata',parameters:'hiddenfield,newData'}
+		{name:'updatedata',parameters:'hiddenfield,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'action',
@@ -157,13 +161,14 @@ class exthiddenfieldMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + exthiddenfieldMetaData.XTYPE,
-	inputs: exthiddenfieldMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: exthiddenfieldMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: exthiddenfieldMetaData.INPUTNAMES,
+	outputs: exthiddenfieldMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => exthiddenfield)}],
 	template: '<template #dynamic></template>'
 })
@@ -174,5 +179,5 @@ export class exthiddenfield extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,exthiddenfieldMetaData);}
 }

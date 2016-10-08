@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.grid.PagingToolbar
 class extpagingtoolbarMetaData {
 	public static XTYPE: string = 'pagingtoolbar';
 	public static INPUTNAMES: string[] = [
@@ -90,7 +91,9 @@ class extpagingtoolbarMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'activate',parameters:'newActiveItem,pagingtoolbar,oldActiveItem'},
@@ -118,7 +121,8 @@ class extpagingtoolbarMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'pagingtoolbar'},
 		{name:'tofront',parameters:'pagingtoolbar'},
-		{name:'updatedata',parameters:'pagingtoolbar,newData'}
+		{name:'updatedata',parameters:'pagingtoolbar,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'activate',
@@ -146,13 +150,14 @@ class extpagingtoolbarMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extpagingtoolbarMetaData.XTYPE,
-	inputs: extpagingtoolbarMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extpagingtoolbarMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extpagingtoolbarMetaData.INPUTNAMES,
+	outputs: extpagingtoolbarMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extpagingtoolbar)}],
 	template: '<template #dynamic></template>'
 })
@@ -163,5 +168,5 @@ export class extpagingtoolbar extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extpagingtoolbarMetaData);}
 }

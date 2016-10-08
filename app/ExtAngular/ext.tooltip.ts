@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.tip.ToolTip
 class exttooltipMetaData {
 	public static XTYPE: string = 'tooltip';
 	public static INPUTNAMES: string[] = [
@@ -110,7 +111,9 @@ class exttooltipMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'activate',parameters:'newActiveItem,tooltip,oldActiveItem'},
@@ -138,7 +141,8 @@ class exttooltipMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'tooltip'},
 		{name:'tofront',parameters:'tooltip'},
-		{name:'updatedata',parameters:'tooltip,newData'}
+		{name:'updatedata',parameters:'tooltip,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'activate',
@@ -166,13 +170,14 @@ class exttooltipMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + exttooltipMetaData.XTYPE,
-	inputs: exttooltipMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: exttooltipMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: exttooltipMetaData.INPUTNAMES,
+	outputs: exttooltipMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => exttooltip)}],
 	template: '<template #dynamic></template>'
 })
@@ -183,5 +188,5 @@ export class exttooltip extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,exttooltipMetaData);}
 }

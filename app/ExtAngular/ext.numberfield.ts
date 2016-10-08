@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.field.Number
 class extnumberfieldMetaData {
 	public static XTYPE: string = 'numberfield';
 	public static INPUTNAMES: string[] = [
@@ -100,7 +101,9 @@ class extnumberfieldMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'action',parameters:'numberfield,e'},
@@ -130,7 +133,8 @@ class extnumberfieldMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'numberfield'},
 		{name:'tofront',parameters:'numberfield'},
-		{name:'updatedata',parameters:'numberfield,newData'}
+		{name:'updatedata',parameters:'numberfield,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'action',
@@ -160,13 +164,14 @@ class extnumberfieldMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extnumberfieldMetaData.XTYPE,
-	inputs: extnumberfieldMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extnumberfieldMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extnumberfieldMetaData.INPUTNAMES,
+	outputs: extnumberfieldMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extnumberfield)}],
 	template: '<template #dynamic></template>'
 })
@@ -177,5 +182,5 @@ export class extnumberfield extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extnumberfieldMetaData);}
 }

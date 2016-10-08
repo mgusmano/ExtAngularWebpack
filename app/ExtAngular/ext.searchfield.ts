@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.field.Search
 class extsearchfieldMetaData {
 	public static XTYPE: string = 'searchfield';
 	public static INPUTNAMES: string[] = [
@@ -97,7 +98,9 @@ class extsearchfieldMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'action',parameters:'searchfield,e'},
@@ -127,7 +130,8 @@ class extsearchfieldMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'searchfield'},
 		{name:'tofront',parameters:'searchfield'},
-		{name:'updatedata',parameters:'searchfield,newData'}
+		{name:'updatedata',parameters:'searchfield,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'action',
@@ -157,13 +161,14 @@ class extsearchfieldMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extsearchfieldMetaData.XTYPE,
-	inputs: extsearchfieldMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extsearchfieldMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extsearchfieldMetaData.INPUTNAMES,
+	outputs: extsearchfieldMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extsearchfield)}],
 	template: '<template #dynamic></template>'
 })
@@ -174,5 +179,5 @@ export class extsearchfield extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extsearchfieldMetaData);}
 }

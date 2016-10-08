@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.viewport.Default
 class extviewportMetaData {
 	public static XTYPE: string = 'viewport';
 	public static INPUTNAMES: string[] = [
@@ -86,7 +87,9 @@ class extviewportMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'activate',parameters:'newActiveItem,viewport,oldActiveItem'},
@@ -116,7 +119,8 @@ class extviewportMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'viewport'},
 		{name:'tofront',parameters:'viewport'},
-		{name:'updatedata',parameters:'viewport,newData'}
+		{name:'updatedata',parameters:'viewport,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'activate',
@@ -146,13 +150,14 @@ class extviewportMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extviewportMetaData.XTYPE,
-	inputs: extviewportMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extviewportMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extviewportMetaData.INPUTNAMES,
+	outputs: extviewportMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extviewport)}],
 	template: '<template #dynamic></template>'
 })
@@ -163,5 +168,5 @@ export class extviewport extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extviewportMetaData);}
 }

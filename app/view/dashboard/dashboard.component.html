@@ -5,21 +5,21 @@
 		<div class="col-md-4 col-sm-4 col-xs-12">
 			<div class="home-panel" style="height:280px">
 				<div class="home-panel-title">Pie</div>
-					<ext-polar [config]='polarConfig' ></ext-polar>
+					<ext-polar [config]='polarConfig' fit=true></ext-polar>
 			</div>
 		</div>
 
 		<div class="col-md-4 col-sm-4 col-xs-12">
 			<div class="home-panel" style="height:280px">
 				<div class="home-panel-title">Agency List</div>
-				<ext-list [config]='listConfig'></ext-list>
+				<ext-list [config]='listConfig' fit=true></ext-list>
 			</div>
 		</div>
 
 		<div class="col-md-4 col-sm-4 col-xs-12">
 			<div class="home-panel" style="height:280px">
 				<div class="home-panel-title">Who Has Logged On? <button style="margin-top:-5px;margin-right:5px;float:right;" (click)="onStopAutoPlay()">Stop</button></div>
-				<ext [xtype]='"carousel"'	[config]='carouselConfig' (ready)='readyCarousel($event)'></ext>
+				<ext-carousel	[config]='carouselConfig' (ready)='readyCarousel($event)' fit=true></ext-carousel>
 			</div>
 		</div>
 
@@ -30,14 +30,14 @@
 		<div class="col-md-6 col-sm-6 col-xs-12">
 			<div class="home-panel" style="height:280px;">
 				<div class="home-panel-title">Bar Chart</div>
-				<ext-cartesian [config]='cartesianConfig'></ext-cartesian>
+				<ext-cartesian [config]='cartesianConfig' fit=true></ext-cartesian>
 			</div>
 		</div>
 
 		<div class="col-md-6 col-sm-6 col-xs-12">
 			<div class="home-panel" style="height:280px">
 				<div class="home-panel-title">All Spending By Type of Investment</div>
-				<ext-pivotgrid [config]='pivotgridConfig'></ext-pivotgrid>
+				<ext-pivotgrid [config]='pivotgridConfig' fit=true></ext-pivotgrid>
 			</div>
 		</div>
 
@@ -55,14 +55,14 @@
 		<div class="col-md-4 col-sm-4 col-xs-12">
 			<div class="home-panel" style="height:280px">
 				<div class="home-panel-title">Placeholder</div>
-				<ext [xtype]='"d3-treemap"' [config]='d3Config' ></ext>
+				<ext [xtype]='"d3-treemap"' [config]='d3Config' fit=true></ext>
 			</div>
 		</div>
 
 		<div class="col-md-4 col-sm-4 col-xs-12">
 			<div class="home-panel" style="height:280px">
 				<div class="home-panel-title">Today's Candidate Calendar</div>
-				<ext [xtype]='"calendar-day"'	[config]='calendarConfig' (ready)='readyCalendar($event)'></ext>
+				<ext [xtype]='"calendar-day"'	[config]='calendarConfig' (ready)='readyCalendar($event)' fit=true></ext>
 			</div>
 		</div>
 

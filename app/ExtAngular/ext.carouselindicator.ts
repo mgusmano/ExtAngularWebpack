@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.carousel.Indicator
 class extcarouselindicatorMetaData {
 	public static XTYPE: string = 'carouselindicator';
 	public static INPUTNAMES: string[] = [
@@ -73,7 +74,9 @@ class extcarouselindicatorMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'added',parameters:'carouselindicator,container,index'},
@@ -97,7 +100,8 @@ class extcarouselindicatorMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'carouselindicator'},
 		{name:'tofront',parameters:'carouselindicator'},
-		{name:'updatedata',parameters:'carouselindicator,newData'}
+		{name:'updatedata',parameters:'carouselindicator,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'added',
@@ -121,13 +125,14 @@ class extcarouselindicatorMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extcarouselindicatorMetaData.XTYPE,
-	inputs: extcarouselindicatorMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extcarouselindicatorMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extcarouselindicatorMetaData.INPUTNAMES,
+	outputs: extcarouselindicatorMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extcarouselindicator)}],
 	template: '<template #dynamic></template>'
 })
@@ -138,5 +143,5 @@ export class extcarouselindicator extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extcarouselindicatorMetaData);}
 }

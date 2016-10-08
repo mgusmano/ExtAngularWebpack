@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.field.Url
 class exturlfieldMetaData {
 	public static XTYPE: string = 'urlfield';
 	public static INPUTNAMES: string[] = [
@@ -97,7 +98,9 @@ class exturlfieldMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'action',parameters:'urlfield,e'},
@@ -127,7 +130,8 @@ class exturlfieldMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'urlfield'},
 		{name:'tofront',parameters:'urlfield'},
-		{name:'updatedata',parameters:'urlfield,newData'}
+		{name:'updatedata',parameters:'urlfield,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'action',
@@ -157,13 +161,14 @@ class exturlfieldMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + exturlfieldMetaData.XTYPE,
-	inputs: exturlfieldMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: exturlfieldMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: exturlfieldMetaData.INPUTNAMES,
+	outputs: exturlfieldMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => exturlfield)}],
 	template: '<template #dynamic></template>'
 })
@@ -174,5 +179,5 @@ export class exturlfield extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,exturlfieldMetaData);}
 }

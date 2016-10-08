@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.chart.CartesianChart
 class extcartesianMetaData {
 	public static XTYPE: string = 'cartesian';
 	public static INPUTNAMES: string[] = [
@@ -21,7 +22,9 @@ class extcartesianMetaData {
 		'sprites',
 		'store',
 		'style',
-		'theme'
+		'theme',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'beforerefresh',parameters:'cartesian'},
@@ -44,7 +47,8 @@ class extcartesianMetaData {
 		{name:'spritemouseover',parameters:'sprite,event'},
 		{name:'spritemouseup',parameters:'sprite,event'},
 		{name:'spritetap',parameters:'sprite,event'},
-		{name:'storechange',parameters:'chart,newStore,oldStore'}
+		{name:'storechange',parameters:'chart,newStore,oldStore'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'beforerefresh',
@@ -67,13 +71,14 @@ class extcartesianMetaData {
 		'spritemouseover',
 		'spritemouseup',
 		'spritetap',
-		'storechange'
+		'storechange',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extcartesianMetaData.XTYPE,
-	inputs: extcartesianMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extcartesianMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extcartesianMetaData.INPUTNAMES,
+	outputs: extcartesianMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extcartesian)}],
 	template: '<template #dynamic></template>'
 })
@@ -84,5 +89,5 @@ export class extcartesian extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extcartesianMetaData);}
 }

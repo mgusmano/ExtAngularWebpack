@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.Sheet
 class extsheetMetaData {
 	public static XTYPE: string = 'sheet';
 	public static INPUTNAMES: string[] = [
@@ -100,7 +101,9 @@ class extsheetMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'activate',parameters:'newActiveItem,sheet,oldActiveItem'},
@@ -128,7 +131,8 @@ class extsheetMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'sheet'},
 		{name:'tofront',parameters:'sheet'},
-		{name:'updatedata',parameters:'sheet,newData'}
+		{name:'updatedata',parameters:'sheet,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'activate',
@@ -156,13 +160,14 @@ class extsheetMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extsheetMetaData.XTYPE,
-	inputs: extsheetMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extsheetMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extsheetMetaData.INPUTNAMES,
+	outputs: extsheetMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extsheet)}],
 	template: '<template #dynamic></template>'
 })
@@ -173,5 +178,5 @@ export class extsheet extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extsheetMetaData);}
 }

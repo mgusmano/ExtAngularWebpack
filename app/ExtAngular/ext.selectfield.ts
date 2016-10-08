@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.field.Select
 class extselectfieldMetaData {
 	public static XTYPE: string = 'selectfield';
 	public static INPUTNAMES: string[] = [
@@ -109,7 +110,9 @@ class extselectfieldMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'action',parameters:'selectfield,e'},
@@ -139,7 +142,8 @@ class extselectfieldMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'selectfield'},
 		{name:'tofront',parameters:'selectfield'},
-		{name:'updatedata',parameters:'selectfield,newData'}
+		{name:'updatedata',parameters:'selectfield,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'action',
@@ -169,13 +173,14 @@ class extselectfieldMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extselectfieldMetaData.XTYPE,
-	inputs: extselectfieldMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extselectfieldMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extselectfieldMetaData.INPUTNAMES,
+	outputs: extselectfieldMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extselectfield)}],
 	template: '<template #dynamic></template>'
 })
@@ -186,5 +191,5 @@ export class extselectfield extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extselectfieldMetaData);}
 }

@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.grid.Grid
 class extgridMetaData {
 	public static XTYPE: string = 'grid';
 	public static INPUTNAMES: string[] = [
@@ -129,7 +130,7 @@ class extgridMetaData {
 		'xtype',
 		'y',
 		'zIndex',
-		'nofit',
+		'fit',
 		'config'
 ];
 	public static OUTPUTS: any[] = [
@@ -182,7 +183,8 @@ class extgridMetaData {
 		{name:'selectionchange',parameters:'grid,records'},
 		{name:'show',parameters:'grid'},
 		{name:'tofront',parameters:'grid'},
-		{name:'updatedata',parameters:'grid,newData'}
+		{name:'updatedata',parameters:'grid,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'activate',
@@ -234,13 +236,14 @@ class extgridMetaData {
 		'selectionchange',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extgridMetaData.XTYPE,
 	inputs: extgridMetaData.INPUTNAMES,
-	outputs: extgridMetaData.OUTPUTNAMES.concat('ready'),
+	outputs: extgridMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extgrid)}],
 	template: '<template #dynamic></template>'
 })
@@ -250,9 +253,6 @@ export class extgrid extends extbase {
 	}
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
-	ngAfterContentInit() {
-		debugger;
-		this.AfterContentInit(this.extbaseRef);
-	}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extgridMetaData);}
 }

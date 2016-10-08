@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.field.Picker
 class extpickerfieldMetaData {
 	public static XTYPE: string = 'pickerfield';
 	public static INPUTNAMES: string[] = [
@@ -101,7 +102,9 @@ class extpickerfieldMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'action',parameters:'pickerfield,e'},
@@ -131,7 +134,8 @@ class extpickerfieldMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'pickerfield'},
 		{name:'tofront',parameters:'pickerfield'},
-		{name:'updatedata',parameters:'pickerfield,newData'}
+		{name:'updatedata',parameters:'pickerfield,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'action',
@@ -161,13 +165,14 @@ class extpickerfieldMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extpickerfieldMetaData.XTYPE,
-	inputs: extpickerfieldMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extpickerfieldMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extpickerfieldMetaData.INPUTNAMES,
+	outputs: extpickerfieldMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extpickerfield)}],
 	template: '<template #dynamic></template>'
 })
@@ -178,5 +183,5 @@ export class extpickerfield extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extpickerfieldMetaData);}
 }

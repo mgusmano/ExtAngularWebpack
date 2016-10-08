@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.field.DatePickerNative
 class extdatepickernativefieldMetaData {
 	public static XTYPE: string = 'datepickernativefield';
 	public static INPUTNAMES: string[] = [
@@ -104,7 +105,9 @@ class extdatepickernativefieldMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'action',parameters:'datepickernativefield,e'},
@@ -134,7 +137,8 @@ class extdatepickernativefieldMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'datepickernativefield'},
 		{name:'tofront',parameters:'datepickernativefield'},
-		{name:'updatedata',parameters:'datepickernativefield,newData'}
+		{name:'updatedata',parameters:'datepickernativefield,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'action',
@@ -164,13 +168,14 @@ class extdatepickernativefieldMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extdatepickernativefieldMetaData.XTYPE,
-	inputs: extdatepickernativefieldMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extdatepickernativefieldMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extdatepickernativefieldMetaData.INPUTNAMES,
+	outputs: extdatepickernativefieldMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extdatepickernativefield)}],
 	template: '<template #dynamic></template>'
 })
@@ -181,5 +186,5 @@ export class extdatepickernativefield extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extdatepickernativefieldMetaData);}
 }

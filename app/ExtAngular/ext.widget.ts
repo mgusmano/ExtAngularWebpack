@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.Widget
 class extwidgetMetaData {
 	public static XTYPE: string = 'widget';
 	public static INPUTNAMES: string[] = [
@@ -34,21 +35,25 @@ class extwidgetMetaData {
 		'viewModel',
 		'width',
 		'x',
-		'y'
+		'y',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'beforetofront',parameters:'widget'},
-		{name:'tofront',parameters:'widget'}
+		{name:'tofront',parameters:'widget'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'beforetofront',
-		'tofront'
+		'tofront',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extwidgetMetaData.XTYPE,
-	inputs: extwidgetMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extwidgetMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extwidgetMetaData.INPUTNAMES,
+	outputs: extwidgetMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extwidget)}],
 	template: '<template #dynamic></template>'
 })
@@ -59,5 +64,5 @@ export class extwidget extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extwidgetMetaData);}
 }

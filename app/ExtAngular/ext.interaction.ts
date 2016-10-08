@@ -1,24 +1,27 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.chart.interactions.Abstract
 class extinteractionMetaData {
 	public static XTYPE: string = 'interaction';
 	public static INPUTNAMES: string[] = [
 		'chart',
 		'enabled',
 		'gesture',
-		'listeners'
+		'listeners',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
-
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
-
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extinteractionMetaData.XTYPE,
-	inputs: extinteractionMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extinteractionMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extinteractionMetaData.INPUTNAMES,
+	outputs: extinteractionMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extinteraction)}],
 	template: '<template #dynamic></template>'
 })
@@ -29,5 +32,5 @@ export class extinteraction extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extinteractionMetaData);}
 }

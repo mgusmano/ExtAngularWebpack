@@ -72,7 +72,13 @@
 
 			<li class="a-treelist-item">
 				<div class="a-treelist-row" routerLink="/candidatecalendars" routerLinkActive="active">
-						<div class="a-treelist-item-icon x-fa fa-calendar"></div><div class="a-treelist-item-text">Candidate Calendars</div>
+					<div class="a-treelist-item-icon x-fa fa-calendar"></div><div class="a-treelist-item-text">Candidate Calendars</div>
+				</div>
+			</li>
+
+			<li class="a-treelist-item">
+				<div class="a-treelist-row" routerLink="/d3treelist" routerLinkActive="active">
+					<div class="a-treelist-item-icon x-fa fa-calendar"></div><div class="a-treelist-item-text">D3 TreeList</div>
 				</div>
 			</li>
 
@@ -143,25 +149,6 @@
 			</li>
 
 			<li class="a-treelist-item">
-				<div class="a-treelist-row" (click)="togglex(2)">
-						<div class="a-treelist-item-icon x-fa fa-star"></div><div class="a-treelist-item-text">D3 Stuff</div>
-						<div xclass="a-treelist-item-expander" class="a-treelist-item-expander fa fa-caret-{{chevronx[2]}}" ></div>
-				</div>
-				<ul *ngIf="expandedx[2]" class="a-treelist-container">
-					<li class="a-treelist-item a-treelist-item-leaf a-treelistitem">
-						<div class="a-treelist-row" routerLink="/d3treelist" routerLinkActive="active">
-								<div class="a-treelist-item-icon"></div><div class="a-treelist-item-text">D3 TreeList</div>
-						</div>
-					</li>
-					<li class="a-treelist-item a-treelist-item-leaf a-treelistitem">
-						<div class="a-treelist-row" routerLink="/pbd" routerLinkActive="active">
-								<div class="a-treelist-item-icon"></div><div class="a-treelist-item-text">Purchases By Day</div>
-						</div>
-					</li>
-				</ul>
-			</li>
-
-			<li class="a-treelist-item">
 				<div class="a-treelist-row" routerLink="/widgetgrid" routerLinkActive="active">
 						<div class="a-treelist-item-icon x-fa fa-calendar"></div><div class="a-treelist-item-text">Widget Grid</div>
 				</div>
@@ -179,12 +166,11 @@
 				</div>
 			</li>
 
-
 			<li class="a-treelist-item">
 				<div class="a-treelist-row" routerLink="/simplegrid" routerLinkActive="active">
 						<div class="a-treelist-item-icon x-fa fa-calendar"></div><div class="a-treelist-item-text">Simple Grid</div>
 				</div>
-			</li>			
+			</li>
 
 		</ul>
 	</div>

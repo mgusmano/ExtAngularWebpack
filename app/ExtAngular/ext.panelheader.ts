@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.panel.Header
 class extpanelheaderMetaData {
 	public static XTYPE: string = 'panelheader';
 	public static INPUTNAMES: string[] = [
@@ -90,7 +91,9 @@ class extpanelheaderMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'activate',parameters:'newActiveItem,panelheader,oldActiveItem'},
@@ -118,7 +121,8 @@ class extpanelheaderMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'panelheader'},
 		{name:'tofront',parameters:'panelheader'},
-		{name:'updatedata',parameters:'panelheader,newData'}
+		{name:'updatedata',parameters:'panelheader,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'activate',
@@ -146,13 +150,14 @@ class extpanelheaderMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extpanelheaderMetaData.XTYPE,
-	inputs: extpanelheaderMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extpanelheaderMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extpanelheaderMetaData.INPUTNAMES,
+	outputs: extpanelheaderMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extpanelheader)}],
 	template: '<template #dynamic></template>'
 })
@@ -163,5 +168,5 @@ export class extpanelheader extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extpanelheaderMetaData);}
 }

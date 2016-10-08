@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.picker.Date
 class extdatepickerMetaData {
 	public static XTYPE: string = 'datepicker';
 	public static INPUTNAMES: string[] = [
@@ -112,7 +113,9 @@ class extdatepickerMetaData {
 		'yearFrom',
 		'yearText',
 		'yearTo',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'activate',parameters:'newActiveItem,datepicker,oldActiveItem'},
@@ -143,7 +146,8 @@ class extdatepickerMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'datepicker'},
 		{name:'tofront',parameters:'datepicker'},
-		{name:'updatedata',parameters:'datepicker,newData'}
+		{name:'updatedata',parameters:'datepicker,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'activate',
@@ -174,13 +178,14 @@ class extdatepickerMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extdatepickerMetaData.XTYPE,
-	inputs: extdatepickerMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extdatepickerMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extdatepickerMetaData.INPUTNAMES,
+	outputs: extdatepickerMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extdatepicker)}],
 	template: '<template #dynamic></template>'
 })
@@ -191,5 +196,5 @@ export class extdatepicker extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extdatepickerMetaData);}
 }

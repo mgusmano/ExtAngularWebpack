@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.grid.Tree
 class exttreeMetaData {
 	public static XTYPE: string = 'tree';
 	public static INPUTNAMES: string[] = [
@@ -132,7 +133,9 @@ class exttreeMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'activate',parameters:'newActiveItem,tree,oldActiveItem'},
@@ -190,7 +193,8 @@ class exttreeMetaData {
 		{name:'selectionchange',parameters:'tree,records'},
 		{name:'show',parameters:'tree'},
 		{name:'tofront',parameters:'tree'},
-		{name:'updatedata',parameters:'tree,newData'}
+		{name:'updatedata',parameters:'tree,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'activate',
@@ -248,13 +252,14 @@ class exttreeMetaData {
 		'selectionchange',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + exttreeMetaData.XTYPE,
-	inputs: exttreeMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: exttreeMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: exttreeMetaData.INPUTNAMES,
+	outputs: exttreeMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => exttree)}],
 	template: '<template #dynamic></template>'
 })
@@ -265,5 +270,5 @@ export class exttree extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,exttreeMetaData);}
 }

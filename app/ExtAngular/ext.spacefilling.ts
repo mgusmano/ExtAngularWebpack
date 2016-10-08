@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.chart.SpaceFillingChart
 class extspacefillingMetaData {
 	public static XTYPE: string = 'spacefilling';
 	public static INPUTNAMES: string[] = [
@@ -19,7 +20,9 @@ class extspacefillingMetaData {
 		'sprites',
 		'store',
 		'style',
-		'theme'
+		'theme',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'beforerefresh',parameters:'spacefilling'},
@@ -42,7 +45,8 @@ class extspacefillingMetaData {
 		{name:'spritemouseover',parameters:'sprite,event'},
 		{name:'spritemouseup',parameters:'sprite,event'},
 		{name:'spritetap',parameters:'sprite,event'},
-		{name:'storechange',parameters:'chart,newStore,oldStore'}
+		{name:'storechange',parameters:'chart,newStore,oldStore'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'beforerefresh',
@@ -65,13 +69,14 @@ class extspacefillingMetaData {
 		'spritemouseover',
 		'spritemouseup',
 		'spritetap',
-		'storechange'
+		'storechange',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extspacefillingMetaData.XTYPE,
-	inputs: extspacefillingMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extspacefillingMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extspacefillingMetaData.INPUTNAMES,
+	outputs: extspacefillingMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extspacefilling)}],
 	template: '<template #dynamic></template>'
 })
@@ -82,5 +87,5 @@ export class extspacefilling extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extspacefillingMetaData);}
 }

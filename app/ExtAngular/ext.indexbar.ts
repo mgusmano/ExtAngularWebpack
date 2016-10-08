@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.dataview.IndexBar
 class extindexbarMetaData {
 	public static XTYPE: string = 'indexbar';
 	public static INPUTNAMES: string[] = [
@@ -77,7 +78,9 @@ class extindexbarMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'added',parameters:'indexbar,container,index'},
@@ -100,7 +103,8 @@ class extindexbarMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'indexbar'},
 		{name:'tofront',parameters:'indexbar'},
-		{name:'updatedata',parameters:'indexbar,newData'}
+		{name:'updatedata',parameters:'indexbar,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'added',
@@ -123,13 +127,14 @@ class extindexbarMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extindexbarMetaData.XTYPE,
-	inputs: extindexbarMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extindexbarMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extindexbarMetaData.INPUTNAMES,
+	outputs: extindexbarMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extindexbar)}],
 	template: '<template #dynamic></template>'
 })
@@ -140,5 +145,5 @@ export class extindexbar extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extindexbarMetaData);}
 }

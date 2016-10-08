@@ -1,4 +1,3 @@
-
 import { NgModule } from "@angular/core";
 import { ext } from './ext';
 import { extngcomponent } from './ext.ngcomponent';
@@ -17,6 +16,12 @@ import { extpolar } from './ext.polar';
 import { extspacefilling } from './ext.spacefilling';
 import { extcomponent } from './ext.component';
 import { extcontainer } from './ext.container';
+import { extd3_canvas } from './ext.d3_canvas';
+import { extd3_heatmap } from './ext.d3_heatmap';
+import { extd3_pack } from './ext.d3_pack';
+import { extd3_partition } from './ext.d3_partition';
+import { extd3_sunburst } from './ext.d3_sunburst';
+import { extd3_treemap } from './ext.d3_treemap';
 import { extdataview } from './ext.dataview';
 import { extindexbar } from './ext.indexbar';
 import { extlist } from './ext.list';
@@ -105,6 +110,12 @@ import { extwidget } from './ext.widget';
 		extspacefilling,
 		extcomponent,
 		extcontainer,
+		extd3_canvas,
+		extd3_heatmap,
+		extd3_pack,
+		extd3_partition,
+		extd3_sunburst,
+		extd3_treemap,
 		extdataview,
 		extindexbar,
 		extlist,
@@ -192,6 +203,12 @@ import { extwidget } from './ext.widget';
 		extspacefilling,
 		extcomponent,
 		extcontainer,
+		extd3_canvas,
+		extd3_heatmap,
+		extd3_pack,
+		extd3_partition,
+		extd3_sunburst,
+		extd3_treemap,
 		extdataview,
 		extindexbar,
 		extlist,

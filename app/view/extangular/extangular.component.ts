@@ -12,7 +12,7 @@ import {SimpsonsModel} from './simpsons.model';
 	template: `
 
 				<h3>ExtJS Sales Grid</h3> 
-				<ext-grid #theGridSales [nofit]=true
+				<ext-grid #theGridSales
 					[(title)]="titleSales"
 					[columns]= "columnsSales" 
 					[store]="storeSales"
@@ -22,7 +22,7 @@ import {SimpsonsModel} from './simpsons.model';
 				></ext-grid>
 
 				<h3>ExtJS Simpsons Grid</h3>
-				<ext-grid #theGridSimpsons [nofit]=true
+				<ext-grid #theGridSimpsons
 					[(title)]="titleSimpsons"
 					[columns]= "columnsSimpsons" 
 					[store]="storeSimpsons"
@@ -37,7 +37,7 @@ import {SimpsonsModel} from './simpsons.model';
 				<br/>Selected email: {{email}}
 
 				<br/><br/>
-				<ext-button [nofit]=true
+				<ext-button
 					[config]="buttonConfigHello"
 					[text]="'hello'"
 					(click)="onButtonClickHello($event)" 
@@ -48,7 +48,7 @@ import {SimpsonsModel} from './simpsons.model';
 
 				<h3>ExtJS Forum Grid</h3> 
 
-				<ext-grid #theGridForum [nofit]=true
+				<ext-grid #theGridForum
 					[(title)]="titleForum"
 					[columns]= "columnsForum" 
 					[store]="storeForum"

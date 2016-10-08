@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.chart.PolarChart
 class extpolarMetaData {
 	public static XTYPE: string = 'polar';
 	public static INPUTNAMES: string[] = [
@@ -22,7 +23,9 @@ class extpolarMetaData {
 		'sprites',
 		'store',
 		'style',
-		'theme'
+		'theme',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'beforerefresh',parameters:'polar'},
@@ -45,7 +48,8 @@ class extpolarMetaData {
 		{name:'spritemouseover',parameters:'sprite,event'},
 		{name:'spritemouseup',parameters:'sprite,event'},
 		{name:'spritetap',parameters:'sprite,event'},
-		{name:'storechange',parameters:'chart,newStore,oldStore'}
+		{name:'storechange',parameters:'chart,newStore,oldStore'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'beforerefresh',
@@ -68,13 +72,14 @@ class extpolarMetaData {
 		'spritemouseover',
 		'spritemouseup',
 		'spritetap',
-		'storechange'
+		'storechange',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extpolarMetaData.XTYPE,
-	inputs: extpolarMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extpolarMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extpolarMetaData.INPUTNAMES,
+	outputs: extpolarMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extpolar)}],
 	template: '<template #dynamic></template>'
 })
@@ -85,5 +90,5 @@ export class extpolar extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extpolarMetaData);}
 }

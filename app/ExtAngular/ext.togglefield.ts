@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.field.Toggle
 class exttogglefieldMetaData {
 	public static XTYPE: string = 'togglefield';
 	public static INPUTNAMES: string[] = [
@@ -97,7 +98,9 @@ class exttogglefieldMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'added',parameters:'togglefield,container,index'},
@@ -124,7 +127,8 @@ class exttogglefieldMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'togglefield'},
 		{name:'tofront',parameters:'togglefield'},
-		{name:'updatedata',parameters:'togglefield,newData'}
+		{name:'updatedata',parameters:'togglefield,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'added',
@@ -151,13 +155,14 @@ class exttogglefieldMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + exttogglefieldMetaData.XTYPE,
-	inputs: exttogglefieldMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: exttogglefieldMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: exttogglefieldMetaData.INPUTNAMES,
+	outputs: exttogglefieldMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => exttogglefield)}],
 	template: '<template #dynamic></template>'
 })
@@ -168,5 +173,5 @@ export class exttogglefield extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,exttogglefieldMetaData);}
 }

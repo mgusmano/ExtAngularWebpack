@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.calendar.panel.Panel
 class extcalendarMetaData {
 	public static XTYPE: string = 'calendar';
 	public static INPUTNAMES: string[] = [
@@ -20,19 +21,21 @@ class extcalendarMetaData {
 		'titleBar',
 		'todayButton',
 		'value',
-		'views'
+		'views',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
-
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
-
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extcalendarMetaData.XTYPE,
-	inputs: extcalendarMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extcalendarMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extcalendarMetaData.INPUTNAMES,
+	outputs: extcalendarMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extcalendar)}],
 	template: '<template #dynamic></template>'
 })
@@ -43,5 +46,5 @@ export class extcalendar extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extcalendarMetaData);}
 }

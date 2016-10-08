@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.field.SingleSlider
 class extsinglesliderfieldMetaData {
 	public static XTYPE: string = 'singlesliderfield';
 	public static INPUTNAMES: string[] = [
@@ -95,7 +96,9 @@ class extsinglesliderfieldMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'added',parameters:'singlesliderfield,container,index'},
@@ -123,7 +126,8 @@ class extsinglesliderfieldMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'singlesliderfield'},
 		{name:'tofront',parameters:'singlesliderfield'},
-		{name:'updatedata',parameters:'singlesliderfield,newData'}
+		{name:'updatedata',parameters:'singlesliderfield,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'added',
@@ -151,13 +155,14 @@ class extsinglesliderfieldMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extsinglesliderfieldMetaData.XTYPE,
-	inputs: extsinglesliderfieldMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extsinglesliderfieldMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extsinglesliderfieldMetaData.INPUTNAMES,
+	outputs: extsinglesliderfieldMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extsinglesliderfield)}],
 	template: '<template #dynamic></template>'
 })
@@ -168,5 +173,5 @@ export class extsinglesliderfield extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extsinglesliderfieldMetaData);}
 }

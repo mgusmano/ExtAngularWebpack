@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.Video
 class extvideoMetaData {
 	public static XTYPE: string = 'video';
 	public static INPUTNAMES: string[] = [
@@ -84,7 +85,9 @@ class extvideoMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'added',parameters:'video,container,index'},
@@ -113,7 +116,8 @@ class extvideoMetaData {
 		{name:'timeupdate',parameters:'video,time'},
 		{name:'tofront',parameters:'video'},
 		{name:'updatedata',parameters:'video,newData'},
-		{name:'volumechange',parameters:'video,volume'}
+		{name:'volumechange',parameters:'video,volume'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'added',
@@ -142,13 +146,14 @@ class extvideoMetaData {
 		'timeupdate',
 		'tofront',
 		'updatedata',
-		'volumechange'
+		'volumechange',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extvideoMetaData.XTYPE,
-	inputs: extvideoMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extvideoMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extvideoMetaData.INPUTNAMES,
+	outputs: extvideoMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extvideo)}],
 	template: '<template #dynamic></template>'
 })
@@ -159,5 +164,5 @@ export class extvideo extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extvideoMetaData);}
 }

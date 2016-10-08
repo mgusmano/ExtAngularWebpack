@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.field.Spinner
 class extspinnerfieldMetaData {
 	public static XTYPE: string = 'spinnerfield';
 	public static INPUTNAMES: string[] = [
@@ -104,7 +105,9 @@ class extspinnerfieldMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'action',parameters:''},
@@ -137,7 +140,8 @@ class extspinnerfieldMetaData {
 		{name:'spindown',parameters:'spinnerfield,value'},
 		{name:'spinup',parameters:'spinnerfield,value'},
 		{name:'tofront',parameters:'spinnerfield'},
-		{name:'updatedata',parameters:''}
+		{name:'updatedata',parameters:''},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'action',
@@ -170,13 +174,14 @@ class extspinnerfieldMetaData {
 		'spindown',
 		'spinup',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extspinnerfieldMetaData.XTYPE,
-	inputs: extspinnerfieldMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extspinnerfieldMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extspinnerfieldMetaData.INPUTNAMES,
+	outputs: extspinnerfieldMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extspinnerfield)}],
 	template: '<template #dynamic></template>'
 })
@@ -187,5 +192,5 @@ export class extspinnerfield extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extspinnerfieldMetaData);}
 }

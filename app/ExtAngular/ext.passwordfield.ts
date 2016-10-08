@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.field.Password
 class extpasswordfieldMetaData {
 	public static XTYPE: string = 'passwordfield';
 	public static INPUTNAMES: string[] = [
@@ -99,7 +100,9 @@ class extpasswordfieldMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'action',parameters:'passwordfield,e'},
@@ -129,7 +132,8 @@ class extpasswordfieldMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'passwordfield'},
 		{name:'tofront',parameters:'passwordfield'},
-		{name:'updatedata',parameters:'passwordfield,newData'}
+		{name:'updatedata',parameters:'passwordfield,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'action',
@@ -159,13 +163,14 @@ class extpasswordfieldMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extpasswordfieldMetaData.XTYPE,
-	inputs: extpasswordfieldMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extpasswordfieldMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extpasswordfieldMetaData.INPUTNAMES,
+	outputs: extpasswordfieldMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extpasswordfield)}],
 	template: '<template #dynamic></template>'
 })
@@ -176,5 +181,5 @@ export class extpasswordfield extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extpasswordfieldMetaData);}
 }

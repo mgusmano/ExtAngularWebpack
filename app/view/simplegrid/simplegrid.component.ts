@@ -8,9 +8,31 @@ import {Component} from '@angular/core';
 		[store]="gridstore"
 		[config]="gridconfig"
 		(select)="onGridSelect($event)"
-	></ext-grid>`
+		(activate)="onGridActivate($event)"
+		(hideq)="onGridHide($event)"
+	></ext-grid>
+
+<ext-formpanel title='hi' width='90%'>
+	<ext-emailfield
+		label='Email'
+		name='email'
+		(change)='onEmailChange($event)'
+	>
+	</ext-emailfield>
+	<ext-button text='hi' ui='action' (tapit)='onTap($event)'></ext-button>
+</ext-formpanel>
+	`
 })
 export class SimpleGridComponent {
+
+	private onTap() { console.log('tap'); }
+	private onEmailChange({newValue}) { console.log(newValue); }
+
+	// gridListeners = {
+	// 	select: this.doSelect()
+	// }
+	// private doSelect() { alert('doselect'); }
+
 
 	gridcolumns = [
 		{ text: 'Name', width: 100, dataIndex: 'name' },
@@ -33,4 +55,7 @@ export class SimpleGridComponent {
 	private onGridSelect({record}) {
 		alert(record.data.name);
 	}
+
+	private onGridActivate(event) { console.log(event); }
+	private onGridHide(event) { console.log(event); }
 }

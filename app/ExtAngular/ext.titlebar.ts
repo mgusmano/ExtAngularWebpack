@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.TitleBar
 class exttitlebarMetaData {
 	public static XTYPE: string = 'titlebar';
 	public static INPUTNAMES: string[] = [
@@ -88,7 +89,9 @@ class exttitlebarMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'activate',parameters:'newActiveItem,titlebar,oldActiveItem'},
@@ -116,7 +119,8 @@ class exttitlebarMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'titlebar'},
 		{name:'tofront',parameters:'titlebar'},
-		{name:'updatedata',parameters:'titlebar,newData'}
+		{name:'updatedata',parameters:'titlebar,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'activate',
@@ -144,13 +148,14 @@ class exttitlebarMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + exttitlebarMetaData.XTYPE,
-	inputs: exttitlebarMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: exttitlebarMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: exttitlebarMetaData.INPUTNAMES,
+	outputs: exttitlebarMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => exttitlebar)}],
 	template: '<template #dynamic></template>'
 })
@@ -161,5 +166,5 @@ export class exttitlebar extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,exttitlebarMetaData);}
 }

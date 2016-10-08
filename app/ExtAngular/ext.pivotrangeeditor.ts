@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.pivot.plugin.rangeeditor.Panel
 class extpivotrangeeditorMetaData {
 	public static XTYPE: string = 'pivotrangeeditor';
 	public static INPUTNAMES: string[] = [
@@ -111,7 +112,9 @@ class extpivotrangeeditorMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'activate',parameters:'newActiveItem,pivotrangeeditor,oldActiveItem'},
@@ -142,7 +145,8 @@ class extpivotrangeeditorMetaData {
 		{name:'show',parameters:'pivotrangeeditor'},
 		{name:'submit',parameters:'pivotrangeeditor,result,e'},
 		{name:'tofront',parameters:'pivotrangeeditor'},
-		{name:'updatedata',parameters:'pivotrangeeditor,newData'}
+		{name:'updatedata',parameters:'pivotrangeeditor,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'activate',
@@ -173,13 +177,14 @@ class extpivotrangeeditorMetaData {
 		'show',
 		'submit',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extpivotrangeeditorMetaData.XTYPE,
-	inputs: extpivotrangeeditorMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extpivotrangeeditorMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extpivotrangeeditorMetaData.INPUTNAMES,
+	outputs: extpivotrangeeditorMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extpivotrangeeditor)}],
 	template: '<template #dynamic></template>'
 })
@@ -190,5 +195,5 @@ export class extpivotrangeeditor extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extpivotrangeeditorMetaData);}
 }

@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.field.File
 class extfilefieldMetaData {
 	public static XTYPE: string = 'filefield';
 	public static INPUTNAMES: string[] = [
@@ -92,7 +93,9 @@ class extfilefieldMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'added',parameters:'filefield,container,index'},
@@ -115,7 +118,8 @@ class extfilefieldMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'filefield'},
 		{name:'tofront',parameters:'filefield'},
-		{name:'updatedata',parameters:'filefield,newData'}
+		{name:'updatedata',parameters:'filefield,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'added',
@@ -138,13 +142,14 @@ class extfilefieldMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extfilefieldMetaData.XTYPE,
-	inputs: extfilefieldMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extfilefieldMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extfilefieldMetaData.INPUTNAMES,
+	outputs: extfilefieldMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extfilefield)}],
 	template: '<template #dynamic></template>'
 })
@@ -155,5 +160,5 @@ export class extfilefield extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extfilefieldMetaData);}
 }

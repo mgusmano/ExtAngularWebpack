@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.field.TextAreaInput
 class exttextareainputMetaData {
 	public static XTYPE: string = 'textareainput';
 	public static INPUTNAMES: string[] = [
@@ -94,7 +95,9 @@ class exttextareainputMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'added',parameters:'textareainput,container,index'},
@@ -123,7 +126,8 @@ class exttextareainputMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'textareainput'},
 		{name:'tofront',parameters:'textareainput'},
-		{name:'updatedata',parameters:'textareainput,newData'}
+		{name:'updatedata',parameters:'textareainput,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'added',
@@ -152,13 +156,14 @@ class exttextareainputMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + exttextareainputMetaData.XTYPE,
-	inputs: exttextareainputMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: exttextareainputMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: exttextareainputMetaData.INPUTNAMES,
+	outputs: exttextareainputMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => exttextareainput)}],
 	template: '<template #dynamic></template>'
 })
@@ -169,5 +174,5 @@ export class exttextareainput extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,exttextareainputMetaData);}
 }

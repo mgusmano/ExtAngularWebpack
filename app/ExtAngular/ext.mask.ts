@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.Mask
 class extmaskMetaData {
 	public static XTYPE: string = 'mask';
 	public static INPUTNAMES: string[] = [
@@ -74,7 +75,9 @@ class extmaskMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'added',parameters:'mask,container,index'},
@@ -97,7 +100,8 @@ class extmaskMetaData {
 		{name:'show',parameters:'mask'},
 		{name:'tap',parameters:'mask,e'},
 		{name:'tofront',parameters:'mask'},
-		{name:'updatedata',parameters:'mask,newData'}
+		{name:'updatedata',parameters:'mask,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'added',
@@ -120,13 +124,14 @@ class extmaskMetaData {
 		'show',
 		'tap',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extmaskMetaData.XTYPE,
-	inputs: extmaskMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extmaskMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extmaskMetaData.INPUTNAMES,
+	outputs: extmaskMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extmask)}],
 	template: '<template #dynamic></template>'
 })
@@ -137,5 +142,5 @@ export class extmask extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extmaskMetaData);}
 }

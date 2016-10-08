@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.field.Radio
 class extradiofieldMetaData {
 	public static XTYPE: string = 'radiofield';
 	public static INPUTNAMES: string[] = [
@@ -91,7 +92,9 @@ class extradiofieldMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'added',parameters:'radiofield,container,index'},
@@ -116,7 +119,8 @@ class extradiofieldMetaData {
 		{name:'show',parameters:'radiofield'},
 		{name:'tofront',parameters:'radiofield'},
 		{name:'uncheck',parameters:'radiofield'},
-		{name:'updatedata',parameters:'radiofield,newData'}
+		{name:'updatedata',parameters:'radiofield,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'added',
@@ -141,13 +145,14 @@ class extradiofieldMetaData {
 		'show',
 		'tofront',
 		'uncheck',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extradiofieldMetaData.XTYPE,
-	inputs: extradiofieldMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extradiofieldMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extradiofieldMetaData.INPUTNAMES,
+	outputs: extradiofieldMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extradiofield)}],
 	template: '<template #dynamic></template>'
 })
@@ -158,5 +163,5 @@ export class extradiofield extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extradiofieldMetaData);}
 }

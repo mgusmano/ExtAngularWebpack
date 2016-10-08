@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.grid.HeaderContainer
 class extheadercontainerMetaData {
 	public static XTYPE: string = 'headercontainer';
 	public static INPUTNAMES: string[] = [
@@ -86,7 +87,9 @@ class extheadercontainerMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'activate',parameters:'newActiveItem,headercontainer,oldActiveItem'},
@@ -114,7 +117,8 @@ class extheadercontainerMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'headercontainer'},
 		{name:'tofront',parameters:'headercontainer'},
-		{name:'updatedata',parameters:'headercontainer,newData'}
+		{name:'updatedata',parameters:'headercontainer,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'activate',
@@ -142,13 +146,14 @@ class extheadercontainerMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extheadercontainerMetaData.XTYPE,
-	inputs: extheadercontainerMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extheadercontainerMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extheadercontainerMetaData.INPUTNAMES,
+	outputs: extheadercontainerMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extheadercontainer)}],
 	template: '<template #dynamic></template>'
 })
@@ -159,5 +164,5 @@ export class extheadercontainer extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extheadercontainerMetaData);}
 }

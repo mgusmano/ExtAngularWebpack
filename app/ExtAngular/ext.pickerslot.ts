@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.picker.Slot
 class extpickerslotMetaData {
 	public static XTYPE: string = 'pickerslot';
 	public static INPUTNAMES: string[] = [
@@ -114,7 +115,9 @@ class extpickerslotMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'activate',parameters:'newActiveItem,pickerslot,oldActiveItem'},
@@ -159,7 +162,8 @@ class extpickerslotMetaData {
 		{name:'show',parameters:'pickerslot'},
 		{name:'slotpick',parameters:'pickerslot,value,node'},
 		{name:'tofront',parameters:'pickerslot'},
-		{name:'updatedata',parameters:'pickerslot,newData'}
+		{name:'updatedata',parameters:'pickerslot,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'activate',
@@ -204,13 +208,14 @@ class extpickerslotMetaData {
 		'show',
 		'slotpick',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extpickerslotMetaData.XTYPE,
-	inputs: extpickerslotMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extpickerslotMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extpickerslotMetaData.INPUTNAMES,
+	outputs: extpickerslotMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extpickerslot)}],
 	template: '<template #dynamic></template>'
 })
@@ -221,5 +226,5 @@ export class extpickerslot extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extpickerslotMetaData);}
 }

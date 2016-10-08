@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.Toolbar
 class exttoolbarMetaData {
 	public static XTYPE: string = 'toolbar';
 	public static INPUTNAMES: string[] = [
@@ -86,7 +87,9 @@ class exttoolbarMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'activate',parameters:'newActiveItem,toolbar,oldActiveItem'},
@@ -114,7 +117,8 @@ class exttoolbarMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'toolbar'},
 		{name:'tofront',parameters:'toolbar'},
-		{name:'updatedata',parameters:'toolbar,newData'}
+		{name:'updatedata',parameters:'toolbar,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'activate',
@@ -142,13 +146,14 @@ class exttoolbarMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + exttoolbarMetaData.XTYPE,
-	inputs: exttoolbarMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: exttoolbarMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: exttoolbarMetaData.INPUTNAMES,
+	outputs: exttoolbarMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => exttoolbar)}],
 	template: '<template #dynamic></template>'
 })
@@ -159,5 +164,5 @@ export class exttoolbar extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,exttoolbarMetaData);}
 }

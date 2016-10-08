@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.field.Email
 class extemailfieldMetaData {
 	public static XTYPE: string = 'emailfield';
 	public static INPUTNAMES: string[] = [
@@ -97,7 +98,9 @@ class extemailfieldMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'action',parameters:'emailfield,e'},
@@ -127,7 +130,8 @@ class extemailfieldMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'emailfield'},
 		{name:'tofront',parameters:'emailfield'},
-		{name:'updatedata',parameters:'emailfield,newData'}
+		{name:'updatedata',parameters:'emailfield,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'action',
@@ -157,13 +161,14 @@ class extemailfieldMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extemailfieldMetaData.XTYPE,
-	inputs: extemailfieldMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extemailfieldMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extemailfieldMetaData.INPUTNAMES,
+	outputs: extemailfieldMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extemailfield)}],
 	template: '<template #dynamic></template>'
 })
@@ -174,5 +179,5 @@ export class extemailfield extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extemailfieldMetaData);}
 }

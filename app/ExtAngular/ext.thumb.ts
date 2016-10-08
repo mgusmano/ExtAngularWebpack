@@ -1,5 +1,6 @@
 import {Component,ViewChild,ElementRef,ComponentFactoryResolver,ViewContainerRef,forwardRef,ContentChildren,QueryList} from '@angular/core';
 import { extbase } from './ext.base';
+// Ext Class - Ext.slider.Thumb
 class extthumbMetaData {
 	public static XTYPE: string = 'thumb';
 	public static INPUTNAMES: string[] = [
@@ -75,7 +76,9 @@ class extthumbMetaData {
 		'x',
 		'xtype',
 		'y',
-		'zIndex'
+		'zIndex',
+		'fit',
+		'config'
 ];
 	public static OUTPUTS: any[] = [
 		{name:'added',parameters:'thumb,container,index'},
@@ -97,7 +100,8 @@ class extthumbMetaData {
 		{name:'resize',parameters:'element'},
 		{name:'show',parameters:'thumb'},
 		{name:'tofront',parameters:'thumb'},
-		{name:'updatedata',parameters:'thumb,newData'}
+		{name:'updatedata',parameters:'thumb,newData'},
+		{name:'ready',parameters:''}
 ];
 	public static OUTPUTNAMES: string[] = [
 		'added',
@@ -119,13 +123,14 @@ class extthumbMetaData {
 		'resize',
 		'show',
 		'tofront',
-		'updatedata'
+		'updatedata',
+		'ready'
 ];
 }
 @Component({
   selector: 'ext-' + extthumbMetaData.XTYPE,
-	inputs: extthumbMetaData.INPUTNAMES.concat('config').concat('nofit'),
-	outputs: extthumbMetaData.OUTPUTNAMES.concat('ready'),
+	inputs: extthumbMetaData.INPUTNAMES,
+	outputs: extthumbMetaData.OUTPUTNAMES,
 	providers: [{provide: extbase, useExisting: forwardRef(() => extthumb)}],
 	template: '<template #dynamic></template>'
 })
@@ -136,5 +141,5 @@ export class extthumb extends extbase {
 	@ContentChildren(extbase,{read:ViewContainerRef}) extbaseRef:QueryList<ViewContainerRef>;
 	@ViewChild('dynamic',{read:ViewContainerRef}) dynamicRef:ViewContainerRef;
 	ngAfterContentInit() {this.AfterContentInit(this.extbaseRef);}
-	ngOnInit() {this.OnInit(this.dynamicRef);}
+	ngOnInit() {this.OnInit(this.dynamicRef,extthumbMetaData);}
 }
