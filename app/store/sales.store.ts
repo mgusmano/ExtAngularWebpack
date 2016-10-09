@@ -1,4 +1,5 @@
-import {extclass} from '../extangular/ext.class';
+import {extclass} from 'angular2-extjs';
+
 
 export class SalesStore extends extclass {
 	constructor (createConfig: any) {

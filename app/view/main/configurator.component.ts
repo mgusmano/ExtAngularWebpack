@@ -6,7 +6,7 @@ import { AgencyService }  from '../../service/agency.service';
 	styles:  [``],
 	template: `
 	<button style="margin-top:10px;margin-left:10px;" (click)="showConfigurator()">Show Configurator</button>
-		<ext-pivotgrid
+		<ext-pivotgrid fit=true
 			(ready)='readyPivotGrid($event)'
 			(configchange)='configchangePivotGrid($event)'
 			[config]='configuratorConfig'

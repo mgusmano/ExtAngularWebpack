@@ -1,4 +1,4 @@
-import {extclass} from '../../extangular/ext.class';
+import {extclass} from 'angular2-extjs';
 import {ForumModel} from './forum.model';
 
 export class ForumStore extends extclass {

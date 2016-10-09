@@ -4,16 +4,13 @@ import { StocksStore } from '../../store/stocks.store';
 @Component({
 	styles:  [``],
   selector: '',
-	template: `
-		<ext-d3-treemap [config]='d3Config' fit=true></ext-d3-treemap>
-	`
+	template: `<ext-d3-treemap [config]='d3Config' fit=true></ext-d3-treemap>`
 })
 export class D3TreeListComponent { 
 	private d3Config: any = {};
 
 	constructor () {
 		this.d3Config = {
-			//style: { width: '500px', height: '500px' },
 			store: new StocksStore().extjsObject,
 			rootVisible: false,
 			nodeValue: function (node) {

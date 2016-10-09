@@ -60,7 +60,8 @@ import { DynamicModule }    from './view/dynamic/dynamic.module';
 
 import { SimpleGridComponent }    from './view/simplegrid/simplegrid.component';
 
-import { ExtModule } from './ExtAngular/ext.module';
+import { ExtModule } from 'angular2-extjs';
+import { extclass } from 'angular2-extjs';
 
 
 //import {provideComponentOutletModule} from './extangular/provider';

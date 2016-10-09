@@ -11,10 +11,85 @@
 -->
 
 			<li class="a-treelist-item">
-				<div class="a-treelist-row" routerLink="/dialogclient" routerLinkActive="active">
-						<div class="a-treelist-item-icon x-fa fa-dashboard"></div><div class="a-treelist-item-text">Dialog Client</div>
+				<div class="a-treelist-row" routerLink="/agencies" routerLinkActive="active">
+						<div class="a-treelist-item-icon x-fa fa-institution"></div><div class="a-treelist-item-text">Agencies</div>
 				</div>
 			</li>
+
+			<li class="a-treelist-item">
+				<div class="a-treelist-row" routerLink="/dashboard" routerLinkActive="active">
+						<div class="a-treelist-item-icon x-fa fa-dashboard"></div><div class="a-treelist-item-text">Dashboard</div>
+				</div>
+			</li>
+
+			<li class="a-treelist-item">
+				<div class="a-treelist-row" routerLink="/spendingdetail" routerLinkActive="active">
+						<div class="a-treelist-item-icon x-fa fa-dollar"></div><div class="a-treelist-item-text">Spending Detail</div>
+				</div>
+			</li>
+
+			<li class="a-treelist-item">
+				<div class="a-treelist-row" routerLink="/candidatecalendars" routerLinkActive="active">
+						<div class="a-treelist-item-icon x-fa fa-dollar"></div><div class="a-treelist-item-text">Candidate Calendars</div>
+				</div>
+			</li>
+
+			<li class="a-treelist-item">
+				<div class="a-treelist-row" routerLink="/reports" routerLinkActive="active">
+						<div class="a-treelist-item-icon x-fa fa-dollar"></div><div class="a-treelist-item-text">Reports</div>
+				</div>
+			</li>
+
+			<li class="a-treelist-item">
+				<div class="a-treelist-row" routerLink="/configurator" routerLinkActive="active">
+					<div class="a-treelist-item-icon x-fa fa-cog"></div><div class="a-treelist-item-text">Pivot Configurator</div>
+				</div>
+			</li>
+
+			<li class="a-treelist-item">
+				<div class="a-treelist-row" routerLink="/analyze" routerLinkActive="active">
+					<div class="a-treelist-item-icon x-fa fa-cog"></div><div class="a-treelist-item-text">Pivot with Chart</div>
+				</div>
+			</li>
+
+			<li class="a-treelist-item">
+				<div class="a-treelist-row" routerLink="/chart" routerLinkActive="active">
+						<div class="a-treelist-item-icon x-fa fa-bar-chart"></div><div class="a-treelist-item-text">Bar Chart</div>
+				</div>
+			</li>
+
+			<li class="a-treelist-item">
+				<div class="a-treelist-row" routerLink="/d3treelist" routerLinkActive="active">
+					<div class="a-treelist-item-icon x-fa fa-calendar"></div><div class="a-treelist-item-text">D3 TreeList</div>
+				</div>
+			</li>
+
+			<li class="a-treelist-item">
+				<div class="a-treelist-row" (click)="togglex(1)">
+						<div class="a-treelist-item-icon x-fa fa-cogs"></div><div class="a-treelist-item-text">Other</div>
+						<div xclass="a-treelist-item-expander" class="a-treelist-item-expander fa fa-caret-{{chevronx[1]}}" ></div>
+				</div>
+				<ul *ngIf="expandedx[1]" class="a-treelist-container">
+					<li class="a-treelist-item a-treelist-item-leaf a-treelistitem">
+						<div class="a-treelist-row" routerLink="/dialogclient" routerLinkActive="active">
+								<div class="a-treelist-item-icon"></div><div class="a-treelist-item-text">Dialog Client</div>
+						</div>
+					</li>
+					<li class="a-treelist-item a-treelist-item-leaf a-treelistitem">
+						<div class="a-treelist-row" routerLink="/chart" routerLinkActive="active">
+								<div class="a-treelist-item-icon"></div><div class="a-treelist-item-text">Pivot Heat Map</div>
+						</div>
+					</li>
+					<li class="a-treelist-item">
+						<div class="a-treelist-row" routerLink="/tabsclient" routerLinkActive="active">
+								<div class="a-treelist-item-icon"></div><div class="a-treelist-item-text">Tabs Client</div>
+						</div>
+					</li>
+				</ul>
+			</li>
+
+
+
 
 			<li class="a-treelist-item">
 				<div class="a-treelist-row" routerLink="/extangular" routerLinkActive="active">
@@ -34,119 +109,16 @@
 				</div>
 			</li>
 
-			<li class="a-treelist-item">
-				<div class="a-treelist-row" routerLink="/tabsclient" routerLinkActive="active">
-						<div class="a-treelist-item-icon x-fa fa-dashboard"></div><div class="a-treelist-item-text">Tabs Client</div>
-				</div>
-			</li>
 
-			<li class="a-treelist-item">
-				<div class="a-treelist-row" routerLink="/dashboard" routerLinkActive="active">
-						<div class="a-treelist-item-icon x-fa fa-dashboard"></div><div class="a-treelist-item-text">Dashboard</div>
-				</div>
-			</li>
 
-			<li class="a-treelist-item">
-				<div class="a-treelist-row" routerLink="/agencies" routerLinkActive="active">
-						<div class="a-treelist-item-icon x-fa fa-institution"></div><div class="a-treelist-item-text">Agencies</div>
-				</div>
-			</li>
 
-			<li class="a-treelist-item">
-				<div class="a-treelist-row" routerLink="/spendingdetail" routerLinkActive="active">
-						<div class="a-treelist-item-icon x-fa fa-dollar"></div><div class="a-treelist-item-text">Spending Detail</div>
-				</div>
-			</li>
 
-			<li class="a-treelist-item">
-				<div class="a-treelist-row" routerLink="/chart" routerLinkActive="active">
-						<div class="a-treelist-item-icon x-fa fa-bar-chart"></div><div class="a-treelist-item-text">Bar Chart</div>
-				</div>
-			</li>
 
-			<li class="a-treelist-item">
-				<div class="a-treelist-row" routerLink="/reports" routerLinkActive="active">
-						<div class="a-treelist-item-icon x-fa fa-calendar"></div><div class="a-treelist-item-text">Reports</div>
-				</div>
-			</li>
 
-			<li class="a-treelist-item">
-				<div class="a-treelist-row" routerLink="/candidatecalendars" routerLinkActive="active">
-					<div class="a-treelist-item-icon x-fa fa-calendar"></div><div class="a-treelist-item-text">Candidate Calendars</div>
-				</div>
-			</li>
 
-			<li class="a-treelist-item">
-				<div class="a-treelist-row" routerLink="/d3treelist" routerLinkActive="active">
-					<div class="a-treelist-item-icon x-fa fa-calendar"></div><div class="a-treelist-item-text">D3 TreeList</div>
-				</div>
-			</li>
 
-<!--
-			<li class="a-treelist-item">
-				<div class="a-treelist-row" (click)="togglex(0)">
-						<div class="a-treelist-item-icon x-fa fa-bar-chart"></div><div class="a-treelist-item-text">Spending Reports</div>
-						<div xclass="a-treelist-item-expander" class="a-treelist-item-expander fa fa-caret-{{chevronx[0]}}" ></div>
-				</div>
-				<ul *ngIf="expandedx[0]" class="a-treelist-container">
-					<li class="a-treelist-item a-treelist-item-leaf a-treelistitem">
-						<div class="a-treelist-row" routerLink="/asbtoi" routerLinkActive="active">
-								<div class="a-treelist-item-icon"></div><div class="a-treelist-item-text">By Type Of Investment</div>
-						</div>
-					</li>
-					<li class="a-treelist-item a-treelist-item-leaf a-treelistitem">
-						<div class="a-treelist-row" routerLink="/asbitp" routerLinkActive="active">
-								<div class="a-treelist-item-icon"></div><div class="a-treelist-item-text">By IT Portfolio</div>
-						</div>
-					</li>
-					<li class="a-treelist-item a-treelist-item-leaf a-treelistitem">
-						<div class="a-treelist-row" routerLink="/allsbtoi" routerLinkActive="active">
-								<div class="a-treelist-item-icon"></div><div class="a-treelist-item-text">All By Type Of Investment</div>
-						</div>
-					</li>
-					<li class="a-treelist-item a-treelist-item-leaf a-treelistitem">
-						<div class="a-treelist-row" routerLink="/allsbpsa" routerLinkActive="active">
-								<div class="a-treelist-item-icon"></div><div class="a-treelist-item-text">All By Primary Service Area</div>
-						</div>
-					</li>
-					<li class="a-treelist-item a-treelist-item-leaf a-treelistitem">
-						<div class="a-treelist-row" routerLink="/asbb" routerLinkActive="active">
-								<div class="a-treelist-item-icon"></div><div class="a-treelist-item-text">By Bureau</div>
-						</div>
-					</li>
 
-					<li class="a-treelist-item a-treelist-item-leaf a-treelistitem">
-						<div class="a-treelist-row" routerLink="/chart" routerLinkActive="active">
-								<div class="a-treelist-item-icon"></div><div class="a-treelist-item-text">xxAgency Spending By Investment Category Bar Chart</div>
-						</div>
-					</li>
-				</ul>
-			</li>
-			-->
 
-			<li class="a-treelist-item">
-				<div class="a-treelist-row" (click)="togglex(1)">
-						<div class="a-treelist-item-icon x-fa fa-cogs"></div><div class="a-treelist-item-text">Ad-hoc Analysis</div>
-						<div xclass="a-treelist-item-expander" class="a-treelist-item-expander fa fa-caret-{{chevronx[1]}}" ></div>
-				</div>
-				<ul *ngIf="expandedx[1]" class="a-treelist-container">
-					<li class="a-treelist-item a-treelist-item-leaf a-treelistitem">
-						<div class="a-treelist-row" routerLink="/configurator" routerLinkActive="active">
-								<div class="a-treelist-item-icon"></div><div class="a-treelist-item-text">Pivot Configurator</div>
-						</div>
-					</li>
-					<li class="a-treelist-item a-treelist-item-leaf a-treelistitem">
-						<div class="a-treelist-row" routerLink="/analyze" routerLinkActive="active">
-								<div class="a-treelist-item-icon"></div><div class="a-treelist-item-text">Pivot with Chart</div>
-						</div>
-					</li>
-					<li class="a-treelist-item a-treelist-item-leaf a-treelistitem">
-						<div class="a-treelist-row" routerLink="/chart" routerLinkActive="active">
-								<div class="a-treelist-item-icon"></div><div class="a-treelist-item-text">Pivot Heat Map</div>
-						</div>
-					</li>
-				</ul>
-			</li>
 
 			<li class="a-treelist-item">
 				<div class="a-treelist-row" routerLink="/widgetgrid" routerLinkActive="active">

@@ -1,5 +1,5 @@
 //import { Component } from '@angular/core';
-import {extclass} from '../extangular/ext.class';
+import {extclass} from 'angular2-extjs';
 
 export class WidgetStore extends extclass {
 
